@@ -1,0 +1,360 @@
+/* ===== Reviews - Carousel Style with Partners ===== */
+.reviews {
+    background: var(--bg-secondary);
+}
+
+.reviews__container {
+    position: relative;
+}
+
+/* Header */
+.reviews__header {
+    text-align: center;
+    margin-bottom: var(--space-2xl);
+}
+
+.reviews__title {
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text-primary);
+}
+
+@media (min-width: 768px) {
+    .reviews__title {
+        font-size: var(--text-4xl);
+    }
+}
+
+/* Partner Logos Carousel */
+.reviews__partners {
+    overflow: hidden;
+    position: relative;
+    margin-bottom: var(--space-3xl);
+    padding: var(--space-lg) 0;
+}
+
+.reviews__partners::before,
+.reviews__partners::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 100px;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.reviews__partners::before {
+    left: 0;
+    background: linear-gradient(to right, var(--bg-secondary), transparent);
+}
+
+.reviews__partners::after {
+    right: 0;
+    background: linear-gradient(to left, var(--bg-secondary), transparent);
+}
+
+.reviews__partners-track {
+    display: flex;
+    white-space: nowrap;
+    animation: scrollLogos 35s linear infinite;
+    width: max-content;
+}
+
+.reviews__partners-track:hover {
+    animation-play-state: paused;
+}
+
+.reviews__partner-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 2.5rem;
+    opacity: 0.5;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    cursor: default;
+}
+
+.reviews__partner-logo:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.reviews__partner-logo span {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    font-family: var(--font-primary);
+    letter-spacing: -0.02em;
+}
+
+@keyframes scrollLogos {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+/* Carousel */
+.reviews__carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+    max-width: 900px;
+    margin: 0 auto var(--space-xl);
+}
+
+.reviews__nav {
+    position: relative;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    border-radius: 50%;
+    font-size: var(--text-xl);
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    flex-shrink: 0;
+}
+
+.reviews__nav:hover {
+    background: var(--text-primary);
+    color: var(--white);
+    border-color: var(--text-primary);
+}
+
+.reviews__track {
+    position: relative;
+    flex: 1;
+    height: 350px;
+    overflow: hidden;
+}
+
+@media (min-width: 640px) {
+    .reviews__track {
+        height: 300px;
+    }
+}
+
+/* Review Card */
+.review-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: var(--space-xl);
+    background: var(--white);
+    border: 1px solid var(--border-light);
+    display: flex;
+    flex-direction: column;
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    pointer-events: none;
+}
+
+@media (min-width: 640px) {
+    .review-card {
+        padding: var(--space-2xl);
+    }
+}
+
+.review-card--active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.review-card__text {
+    font-size: var(--text-lg);
+    font-style: italic;
+    color: var(--text-primary);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+    flex-grow: 1;
+}
+
+@media (min-width: 640px) {
+    .review-card__text {
+        font-size: var(--text-xl);
+    }
+}
+
+.review-card__author {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+}
+
+.review-card__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.review-card__name {
+    font-size: var(--text-base);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.review-card__role {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.review-card__details {
+    align-self: flex-start;
+}
+
+/* Dots */
+.reviews__dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--space-sm);
+}
+
+.reviews__dot {
+    width: 8px;
+    height: 8px;
+    background: var(--grey-300);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.reviews__dot:hover {
+    background: var(--grey-400);
+}
+
+.reviews__dot--active {
+    width: 24px;
+    border-radius: 4px;
+    background: var(--black);
+}
+
+/* Modal */
+.reviews__modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: var(--space-xl);
+    animation: fadeIn 0.3s ease-out;
+}
+
+.reviews__modal-content {
+    background: var(--white);
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.reviews__modal-close {
+    position: absolute;
+    top: var(--space-md);
+    right: var(--space-md);
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-secondary);
+    border: none;
+    font-size: var(--text-2xl);
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.reviews__modal-header {
+    padding: var(--space-2xl);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.reviews__modal-header h3 {
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: var(--space-sm);
+}
+
+.reviews__modal-company {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.reviews__modal-body {
+    padding: var(--space-2xl);
+}
+
+.reviews__modal-body p {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-xl);
+}
+
+.reviews__modal-body h4 {
+    font-size: var(--text-sm);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: var(--space-md);
+}
+
+.reviews__modal-body ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+}
+
+.reviews__modal-body li {
+    font-size: var(--text-base);
+    color: var(--text-primary);
+    padding-left: var(--space-lg);
+    position: relative;
+}
+
+.reviews__modal-body li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--text-muted);
+}
+
+.reviews__modal-footer {
+    padding: var(--space-2xl);
+    background: var(--bg-secondary);
+}
+
+.reviews__modal-footer blockquote {
+    font-size: var(--text-base);
+    font-style: italic;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-md);
+}
+
+.reviews__modal-author {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}

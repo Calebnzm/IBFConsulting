@@ -1,0 +1,132 @@
+/* ===== Resources - Botronics Style ===== */
+.resources {
+    background: var(--bg-primary);
+    border-top: 1px solid var(--border-light);
+}
+
+.resources__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-3xl);
+    margin-bottom: var(--space-3xl);
+}
+
+@media (min-width: 1024px) {
+    .resources__grid {
+        grid-template-columns: 1fr 2fr;
+        gap: var(--space-4xl);
+    }
+}
+
+.resources__header {
+    position: sticky;
+    top: 120px;
+}
+
+.resources__title {
+    font-size: var(--text-3xl);
+    font-weight: 400;
+    line-height: 1.2;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+}
+
+@media (min-width: 768px) {
+    .resources__title {
+        font-size: var(--text-4xl);
+    }
+}
+
+.resources__description {
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+/* Resource List */
+.resources__list {
+    display: flex;
+    flex-direction: column;
+}
+
+.resource-item {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+    padding: var(--space-xl) 0;
+    border-bottom: 1px solid var(--border-light);
+    transition: all var(--transition-base);
+}
+
+@media (min-width: 768px) {
+    .resource-item {
+        grid-template-columns: 120px 1fr auto;
+        align-items: center;
+    }
+}
+
+.resource-item:hover {
+    background: var(--bg-secondary);
+    padding-left: var(--space-lg);
+    margin-left: calc(-1 * var(--space-lg));
+    padding-right: var(--space-lg);
+}
+
+.resource-item__left {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+.resource-item__number {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+}
+
+.resource-item__type {
+    font-size: var(--text-xs);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-secondary);
+    padding: var(--space-xs) var(--space-sm);
+    background: var(--bg-input);
+    border-radius: var(--radius-sm);
+}
+
+.resource-item__title {
+    font-size: var(--text-lg);
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.resource-item__right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+.resource-item__date {
+    font-size: var(--text-sm);
+    color: var(--text-muted);
+}
+
+.resource-item__arrow {
+    font-size: var(--text-lg);
+    color: var(--text-primary);
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all var(--transition-fast);
+}
+
+.resource-item:hover .resource-item__arrow {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* CTA */
+.resources__cta {
+    text-align: center;
+}
