@@ -44,8 +44,6 @@ function Services() {
         setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
     };
 
-    const service = services[currentIndex];
-
     return (
         <section id="services" className="services section">
             <div className="services__container container">
@@ -68,28 +66,36 @@ function Services() {
                     </button>
 
                     <div className="services__track">
-                        <article className="service-card">
-                            <div className="service-card__image">
-                                <img src={service.image} alt={service.title} />
-                            </div>
-                            <div className="service-card__content">
-                                <span className="service-card__number">0{currentIndex + 1}</span>
-                                <h3 className="service-card__title">{service.title}</h3>
-                                <p className="service-card__description">{service.description}</p>
-                                <ul className="service-card__features">
-                                    {service.features.map((feature, idx) => (
-                                        <li key={idx} className="service-card__feature">
-                                            {feature}
-                                        </li>
-                                    ))}
-                                </ul>
-                                <Link to={`/services/${service.id}`} className="service-card__link btn-corner">
-                                    <span>VIEW DETAILS</span>
-                                    <span className="corner-bl"></span>
-                                    <span className="corner-br"></span>
-                                </Link>
-                            </div>
-                        </article>
+                        {services.map((service, index) => (
+                            <article
+                                key={service.id}
+                                className={`service-card ${index === currentIndex ? 'service-card--active' : ''}`}
+                                style={{
+                                    transform: `translateX(${(index - currentIndex) * 100}%)`,
+                                }}
+                            >
+                                <div className="service-card__image">
+                                    <img src={service.image} alt={service.title} />
+                                </div>
+                                <div className="service-card__content">
+                                    <span className="service-card__number">0{index + 1}</span>
+                                    <h3 className="service-card__title">{service.title}</h3>
+                                    <p className="service-card__description">{service.description}</p>
+                                    <ul className="service-card__features">
+                                        {service.features.map((feature, idx) => (
+                                            <li key={idx} className="service-card__feature">
+                                                {feature}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                    <Link to={`/services/${service.id}`} className="service-card__link btn-corner">
+                                        <span>VIEW DETAILS</span>
+                                        <span className="corner-bl"></span>
+                                        <span className="corner-br"></span>
+                                    </Link>
+                                </div>
+                            </article>
+                        ))}
                     </div>
 
                     <button

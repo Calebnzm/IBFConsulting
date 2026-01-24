@@ -1,4 +1,4 @@
-/* ===== Navbar - Botronics Style ===== */
+/* ===== Navbar - Bold Colorful Design ===== */
 .navbar {
     position: fixed;
     top: 0;
@@ -6,13 +6,14 @@
     right: 0;
     z-index: 100;
     padding: var(--space-lg) 0;
-    background: var(--white);
+    background: transparent;
     transition: all var(--transition-base);
 }
 
 .navbar--scrolled {
     padding: var(--space-md) 0;
-    box-shadow: 0 1px 0 var(--border-light);
+    background: var(--bg-dark);
+    box-shadow: 0 4px 20px rgba(0, 80, 157, 0.3);
 }
 
 .navbar__container {
@@ -28,8 +29,13 @@
     gap: var(--space-sm);
     font-size: var(--text-base);
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-inverse);
     letter-spacing: -0.02em;
+    transition: color var(--transition-base);
+}
+
+.navbar--scrolled .navbar__logo {
+    color: var(--text-inverse);
 }
 
 .navbar__logo-icon {
@@ -60,12 +66,16 @@
     font-size: var(--text-xs);
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: var(--text-primary);
+    color: rgba(255, 255, 255, 0.9);
     transition: color var(--transition-fast);
 }
 
+.navbar--scrolled .navbar__link {
+    color: rgba(255, 255, 255, 0.9);
+}
+
 .navbar__link:hover {
-    color: var(--text-secondary);
+    color: var(--primary-cream);
 }
 
 /* Auth Buttons */
@@ -90,21 +100,25 @@
 }
 
 .navbar__auth-btn--login {
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.85);
     background: transparent;
 }
 
 .navbar__auth-btn--login:hover {
-    color: var(--text-primary);
+    color: var(--text-inverse);
 }
 
 .navbar__auth-btn--signup {
-    color: var(--white);
-    background: var(--black);
+    color: var(--text-inverse);
+    background: var(--primary-cream);
+    color: var(--primary-deep);
+    font-weight: 600;
+    border-radius: var(--radius-md);
 }
 
 .navbar__auth-btn--signup:hover {
-    background: var(--grey-800);
+    background: var(--light-cream);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Mobile Toggle */
@@ -128,8 +142,8 @@
 .navbar__mobile-toggle span {
     display: block;
     width: 24px;
-    height: 1px;
-    background: var(--text-primary);
+    height: 2px;
+    background: var(--text-inverse);
     transition: all var(--transition-fast);
 }
 
@@ -148,7 +162,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--white);
+    background: var(--bg-dark);
     padding: var(--space-2xl);
     transform: translateY(-100%);
     opacity: 0;
@@ -180,13 +194,13 @@
     font-size: var(--text-sm);
     font-weight: 500;
     letter-spacing: 0.1em;
-    color: var(--text-primary);
-    border-bottom: 1px solid var(--border-light);
+    color: var(--text-inverse);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
     transition: color var(--transition-fast);
 }
 
 .navbar__mobile-link:hover {
-    color: var(--text-secondary);
+    color: var(--primary-cream);
 }
 
 .navbar__mobile-auth {
@@ -194,7 +208,7 @@
     gap: var(--space-md);
     margin-top: var(--space-xl);
     padding-top: var(--space-xl);
-    border-top: 1px solid var(--border-light);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 .navbar__mobile-auth .navbar__auth-btn {

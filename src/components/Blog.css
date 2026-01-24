@@ -20,9 +20,9 @@
 
 .blog__title {
     font-size: var(--text-3xl);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.2;
-    color: var(--text-primary);
+    color: var(--primary-deep);
 }
 
 @media (min-width: 768px) {
@@ -90,7 +90,7 @@
 }
 
 .post-card:hover .post-card__title {
-    color: var(--text-secondary);
+    color: var(--primary-purple);
 }
 
 .post-card__footer {

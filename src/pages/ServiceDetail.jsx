@@ -164,7 +164,7 @@ function ServiceDetail() {
             </section>
 
             {/* Content */}
-            <section className="service-detail__content section">
+            <section className="service-detail__content page-section">
                 <div className="container">
                     <div className="service-detail__grid">
                         <div className="service-detail__info">

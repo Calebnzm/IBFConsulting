@@ -68,7 +68,7 @@ function ResourcesPage() {
             </section>
 
             {/* Resources Grid */}
-            <section className="resources-page__content section">
+            <section className="resources-page__content page-section">
                 <div className="container">
                     <div className="resources-page__grid">
                         {resources.map((resource) => (

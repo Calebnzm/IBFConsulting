@@ -1,5 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useLayoutEffect } from 'react';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -10,22 +10,36 @@ import ResourcesPage from './pages/ResourcesPage';
 import ResourceDetail from './pages/ResourceDetail';
 import './App.css';
 
-// Custom smooth scroll with configurable duration
-function smoothScrollTo(targetPosition, duration = 1000) {
+// Custom smooth scroll with gentle, slow easing
+function smoothScrollTo(targetPosition, duration = 2000) {
   const startPosition = window.pageYOffset;
   const distance = targetPosition - startPosition;
   let startTime = null;
+
+  // Custom easing function: Gentle bell curve with wider base and lower peak
+  // This creates a smoother, slower transition that doesn't accelerate as rapidly
+  function gentleEaseInOut(t) {
+    // Using a modified quintic ease-in-out for gentler acceleration
+    // Combined with a dampening factor for smoother feel
+    if (t < 0.5) {
+      // Ease in: gentle start
+      return 4 * t * t * t;
+    } else {
+      // Ease out: gentle finish
+      const f = (2 * t) - 2;
+      return 0.5 * f * f * f + 1;
+    }
+  }
 
   function animation(currentTime) {
     if (startTime === null) startTime = currentTime;
     const timeElapsed = currentTime - startTime;
     const progress = Math.min(timeElapsed / duration, 1);
 
-    // Bell curve easing (ease-in-out): starts slow, speeds up in middle, slows at end
-    // Using sine-based easing for smooth bell curve feel
-    const easeInOutSine = -(Math.cos(Math.PI * progress) - 1) / 2;
+    // Apply the gentle easing
+    const easedProgress = gentleEaseInOut(progress);
 
-    window.scrollTo(0, startPosition + distance * easeInOutSine);
+    window.scrollTo(0, startPosition + distance * easedProgress);
 
     if (timeElapsed < duration) {
       requestAnimationFrame(animation);
@@ -35,6 +49,7 @@ function smoothScrollTo(targetPosition, duration = 1000) {
   requestAnimationFrame(animation);
 }
 
+
 // Smooth scroll to top or hash on route change
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -42,12 +57,19 @@ function ScrollToTop() {
   const scrollToElement = useCallback((elementId) => {
     const element = document.getElementById(elementId);
     if (element) {
-      const headerOffset = 80;
+      const headerOffset = 0; // No offset needed with scroll-snap
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-      smoothScrollTo(offsetPosition, 1200);
+      smoothScrollTo(offsetPosition, 2500); // Slower, gentler scroll
     }
   }, []);
+
+  // Scroll to top BEFORE browser paints (prevents flash at bottom)
+  useLayoutEffect(() => {
+    if (!hash) {
+      window.scrollTo(0, 0);
+    }
+  }, [pathname, hash]);
 
   useEffect(() => {
     if (hash) {
@@ -55,8 +77,6 @@ function ScrollToTop() {
       setTimeout(() => {
         scrollToElement(hash.substring(1));
       }, 150);
-    } else {
-      smoothScrollTo(0, 800);
     }
   }, [pathname, hash, scrollToElement]);
 

@@ -1,8 +1,8 @@
-/* ===== Footer - Botronics Style ===== */
+/* ===== Footer - Compact Design ===== */
 .footer {
-    background: var(--white);
-    border-top: 1px solid var(--border-light);
-    padding: var(--space-4xl) 0 var(--space-2xl);
+    background: var(--bg-dark);
+    border-top: none;
+    padding: var(--space-2xl) 0 var(--space-lg);
     position: relative;
     overflow: hidden;
 }
@@ -15,9 +15,9 @@
 .footer__top {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-3xl);
-    padding-bottom: var(--space-3xl);
-    border-bottom: 1px solid var(--border-light);
+    gap: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
 }
 
 @media (min-width: 1024px) {
@@ -35,13 +35,13 @@
 
 .footer__logo-icon {
     font-size: var(--text-xl);
-    color: var(--text-primary);
+    color: var(--text-inverse);
 }
 
 .footer__logo-text {
     font-size: var(--text-base);
     font-weight: 600;
-    color: var(--text-primary);
+    color: var(--text-inverse);
     letter-spacing: -0.02em;
 }
 
@@ -63,7 +63,7 @@
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--text-muted);
+    color: var(--primary-cream);
     margin-bottom: var(--space-md);
 }
 
@@ -75,12 +75,12 @@
 
 .footer__link {
     font-size: var(--text-sm);
-    color: var(--text-primary);
+    color: rgba(255, 255, 255, 0.8);
     transition: color var(--transition-fast);
 }
 
 .footer__link:hover {
-    color: var(--text-secondary);
+    color: var(--primary-cream);
 }
 
 /* Bottom */
@@ -101,7 +101,7 @@
 
 .footer__copyright {
     font-size: var(--text-sm);
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.6);
 }
 
 .footer__social {
@@ -111,21 +111,24 @@
 
 .footer__social-link {
     font-size: var(--text-sm);
-    color: var(--text-secondary);
+    color: rgba(255, 255, 255, 0.7);
     transition: color var(--transition-fast);
 }
 
 .footer__social-link:hover {
-    color: var(--text-primary);
+    color: var(--primary-cream);
 }
 
 /* Watermark */
 .footer__watermark {
     text-align: center;
-    margin-top: var(--space-3xl);
-    font-size: 10vw;
+    margin-top: var(--space-lg);
+    font-size: 5vw;
     font-weight: 800;
-    color: var(--grey-100);
+    background: linear-gradient(135deg, rgba(84, 101, 255, 0.3) 0%, rgba(114, 9, 183, 0.2) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     white-space: nowrap;
     pointer-events: none;
     letter-spacing: -0.05em;
@@ -134,6 +137,6 @@
 
 @media (min-width: 1024px) {
     .footer__watermark {
-        font-size: 8vw;
+        font-size: 4vw;
     }
 }

@@ -137,7 +137,7 @@ function BlogPost() {
             </div>
 
             {/* Content */}
-            <section className="blog-post__content section">
+            <section className="blog-post__content page-section">
                 <div className="container">
                     <div
                         className="blog-post__body"

@@ -80,7 +80,7 @@ function BlogPage() {
             </section>
 
             {/* Posts Grid */}
-            <section className="blog-page__content section">
+            <section className="blog-page__content page-section">
                 <div className="container">
                     <div className="blog-page__grid">
                         {blogPosts.map((post) => (

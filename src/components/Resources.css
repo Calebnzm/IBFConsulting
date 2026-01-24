@@ -25,9 +25,9 @@
 
 .resources__title {
     font-size: var(--text-3xl);
-    font-weight: 400;
+    font-weight: 500;
     line-height: 1.2;
-    color: var(--text-primary);
+    color: var(--primary-deep);
     margin-bottom: var(--space-lg);
 }
 
@@ -124,6 +124,7 @@
 .resource-item:hover .resource-item__arrow {
     opacity: 1;
     transform: translateX(0);
+    color: var(--primary-purple);
 }
 
 /* CTA */

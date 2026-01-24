@@ -101,7 +101,7 @@ function ResourceDetail() {
             </div>
 
             {/* Content */}
-            <section className="resource-detail__content section">
+            <section className="resource-detail__content page-section">
                 <div className="container">
                     <div className="resource-detail__sections">
                         {resource.sections.map((section, index) => (

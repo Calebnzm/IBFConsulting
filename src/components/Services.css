@@ -1,7 +1,9 @@
-/* ===== Services - Carousel Style ===== */
+/* ===== Services - Bold Colorful Design ===== */
 .services {
-    background: var(--bg-primary);
-    border-top: 1px solid var(--border-light);
+    background: var(--primary-purple);
+    border-top: none;
+    position: relative;
+    padding-bottom: var(--space-4xl);
 }
 
 .services__header {
@@ -13,7 +15,7 @@
     font-size: var(--text-3xl);
     font-weight: 400;
     line-height: 1.2;
-    color: var(--text-primary);
+    color: var(--text-inverse);
 }
 
 @media (min-width: 768px) {
@@ -25,51 +27,90 @@
 /* Carousel Container */
 .services__carousel {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     gap: var(--space-lg);
     position: relative;
+    padding: 0 70px;
 }
 
-/* Navigation Buttons */
+/* Navigation Buttons - Matches Reviews Style */
 .services__nav {
-    flex-shrink: 0;
-    width: 50px;
-    height: 50px;
+    position: absolute;
+    top: 180px;
+    width: 48px;
+    height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: var(--text-xl);
     color: var(--text-primary);
-    background: var(--bg-secondary);
+    background: var(--white);
     border: 1px solid var(--border-light);
     border-radius: 50%;
     cursor: pointer;
     transition: all var(--transition-base);
-    z-index: 2;
+    z-index: 10;
+}
+
+.services__nav--prev {
+    left: 0;
+}
+
+.services__nav--next {
+    right: 0;
 }
 
 .services__nav:hover {
-    background: var(--text-primary);
-    color: var(--white);
-    border-color: var(--text-primary);
+    background: var(--gradient-primary);
+    color: var(--text-inverse);
+    border-color: var(--primary-deep);
 }
 
 /* Track */
 .services__track {
     flex: 1;
     overflow: hidden;
+    position: relative;
+    min-height: 480px;
+}
+
+@media (min-width: 640px) {
+    .services__track {
+        min-height: 420px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .services__track {
+        min-height: 400px;
+    }
 }
 
 /* Service Card */
 .service-card {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-2xl);
     align-items: center;
     padding: var(--space-xl);
-    background: var(--bg-secondary);
+    background: var(--neutral-50);
     border-radius: var(--radius-md);
-    animation: fadeIn 0.4s ease-out;
+    box-shadow: 0 10px 40px rgba(114, 9, 183, 0.2);
+    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.service-card--active {
+    opacity: 1;
+    pointer-events: auto;
+    visibility: visible;
+    position: relative;
 }
 
 @media (min-width: 1024px) {
@@ -178,10 +219,10 @@
 }
 
 .services__dot--active {
-    background: var(--text-primary);
+    background: var(--primary-cream);
     transform: scale(1.2);
 }
 
 .services__dot:hover {
-    background: var(--grey-500);
+    background: var(--primary-cream);
 }
