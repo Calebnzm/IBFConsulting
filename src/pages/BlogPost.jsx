@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import '../components/PageHeader.css';
 import './BlogPost.css';
 
 const blogPostsData = {
@@ -112,24 +114,24 @@ const defaultPost = (id) => ({
 function BlogPost() {
     const { id } = useParams();
     const post = blogPostsData[id] || defaultPost(id);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <article className="blog-post">
-            {/* Hero */}
-            <section className="blog-post__hero">
+        <article className="page-wrapper">
+            <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
-                    <Link to="/blog" className="blog-post__back">← Back to Blog</Link>
-                    <span className="blog-post__category">{post.category}</span>
-                    <h1 className="blog-post__title">{post.title}</h1>
-                    <div className="blog-post__meta">
-                        <img src={post.author.image} alt={post.author.name} className="blog-post__author-img" />
-                        <div>
-                            <span className="blog-post__author-name">{post.author.name}</span>
-                            <span className="blog-post__date">{post.date}</span>
-                        </div>
-                    </div>
+                    <h1 className="page-header__title">{post.title}</h1>
                 </div>
-            </section>
+            </div>
 
             {/* Featured Image */}
             <div className="blog-post__image">

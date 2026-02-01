@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import './Contact.css';
 
-function Contact() {
+function Contact({ showHeader = true }) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -26,38 +26,40 @@ function Contact() {
         <section id="contact" className="contact section">
             <div className="contact__container container">
                 <div className="contact__grid">
-                    {/* Header */}
-                    <div className="contact__header">
-                        <span className="section-label">Contact</span>
-                        <h2 className="contact__title">
-                            Let's start a<br />conversation.
-                        </h2>
-                        <p className="contact__description">
-                            Ready to transform your business? Get in touch and let's discuss
-                            how we can help you achieve your goals.
-                        </p>
+                    {/* Header - conditionally rendered */}
+                    {showHeader && (
+                        <div className="contact__header">
+                            <span className="section-label">Contact</span>
+                            <h2 className="contact__title">
+                                Let's start a<br />conversation.
+                            </h2>
+                            <p className="contact__description">
+                                Ready to transform your business? Get in touch and let's discuss
+                                how we can help you achieve your goals.
+                            </p>
 
-                        <div className="contact__info">
-                            <div className="contact__info-item">
-                                <span className="contact__info-label">Email</span>
-                                <a href="mailto:hello@ptconsulting.com" className="contact__info-value">
-                                    hello@ptconsulting.com
-                                </a>
-                            </div>
-                            <div className="contact__info-item">
-                                <span className="contact__info-label">Phone</span>
-                                <a href="tel:+254700123456" className="contact__info-value">
-                                    +254 700 123 456
-                                </a>
-                            </div>
-                            <div className="contact__info-item">
-                                <span className="contact__info-label">Location</span>
-                                <span className="contact__info-value">
-                                    Nairobi, Kenya
-                                </span>
+                            <div className="contact__info">
+                                <div className="contact__info-item">
+                                    <span className="contact__info-label">Email</span>
+                                    <a href="mailto:hello@ptconsulting.com" className="contact__info-value">
+                                        hello@ptconsulting.com
+                                    </a>
+                                </div>
+                                <div className="contact__info-item">
+                                    <span className="contact__info-label">Phone</span>
+                                    <a href="tel:+254700123456" className="contact__info-value">
+                                        +254 700 123 456
+                                    </a>
+                                </div>
+                                <div className="contact__info-item">
+                                    <span className="contact__info-label">Location</span>
+                                    <span className="contact__info-value">
+                                        Nairobi, Kenya
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* Form */}
                     <div className="contact__form-wrapper">

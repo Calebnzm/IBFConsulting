@@ -1,0 +1,5 @@
+/* ReviewsPage - Standalone page layout */
+.reviews-page {
+    padding-top: var(--navbar-height);
+    min-height: 100vh;
+}

@@ -120,7 +120,7 @@ function Hero() {
                     {/* Dominant Logo/Brand */}
                     <div className="hero__brand">
                         <span className="hero__brand-icon">◈</span>
-                        <h1 className="hero__brand-name">PTConsulting</h1>
+                        <h1 className="hero__brand-name">Insurance Business French Consulting</h1>
                     </div>
 
                     {/* Tagline */}

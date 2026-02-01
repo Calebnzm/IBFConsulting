@@ -32,8 +32,9 @@
   --light-purple: #a855d6;
   --light-cream: #eae7dc;
 
-  /* Gradients */
-  --gradient-hero: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-purple) 50%, var(--primary-bright) 100%);
+  /* Hero - Now matches footer (deep blue) */
+  --hero-blue: var(--primary-deep);
+  --gradient-hero: var(--primary-deep);
   --gradient-primary: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-purple) 100%);
   --gradient-bright: linear-gradient(135deg, var(--primary-bright) 0%, var(--primary-purple) 100%);
   --gradient-warm: linear-gradient(180deg, var(--primary-cream) 0%, var(--neutral-50) 100%);
@@ -41,8 +42,8 @@
   /* Added based on hover */
 
   /* Semantic - Backgrounds */
-  --bg-primary: var(--neutral-50);
-  --bg-secondary: var(--primary-cream);
+  --bg-primary: #ffffff;
+  --bg-secondary: #ffffff;
   --bg-dark: var(--primary-deep);
   --bg-darker: var(--dark-blue);
   --bg-input: var(--neutral-100);
@@ -175,38 +176,31 @@ textarea {
 }
 
 .section {
-  min-height: 100vh;
-  height: 100vh;
-  padding: calc(var(--navbar-height) + var(--space-lg)) 0 var(--space-xl) 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
+  min-height: auto;
+  height: auto;
+  padding: var(--space-4xl) 0;
+  display: block;
+  overflow: visible;
   box-sizing: border-box;
 }
 
-/* For detail pages - no snap, auto height, normal scroll */
+/* For detail pages - same as sections now */
 .page-section {
   min-height: auto;
   height: auto;
-  padding: calc(var(--navbar-height) + var(--space-xl)) 0 var(--space-2xl) 0;
+  padding: var(--space-4xl) 0;
   display: block;
   overflow: visible;
 }
 
-/* Allow inner container to scroll if content overflows */
+/* Container styling - no longer needs scroll constraints */
 .section>.container {
-  max-height: 100%;
-  overflow-y: auto;
-  scrollbar-width: none;
-  /* Firefox */
-  -ms-overflow-style: none;
-  /* IE and Edge */
+  max-height: none;
+  overflow: visible;
 }
 
 .section>.container::-webkit-scrollbar {
   display: none;
-  /* Chrome, Safari, Opera */
 }
 
 /* Section Labels - Botronics Style */
@@ -300,7 +294,7 @@ textarea {
   border-color: var(--primary-deep);
 }
 
-/* Solid gradient button */
+/* Solid button - same color as header/footer */
 .btn-solid {
   display: inline-flex;
   align-items: center;
@@ -310,18 +304,20 @@ textarea {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: var(--text-inverse);
-  background: var(--gradient-primary);
-  border-radius: var(--radius-md);
+  color: #ffffff;
+  background: var(--primary-deep);
+  border-radius: 0;
   transition: all var(--transition-base);
   position: relative;
   overflow: hidden;
+  border: 2px solid transparent;
 }
 
 .btn-solid:hover {
-  background: var(--gradient-accent);
+  background: var(--light-blue);
+  color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(114, 9, 183, 0.3);
+  box-shadow: 0 6px 20px rgba(0, 80, 157, 0.3);
 }
 
 /* ===== Separator Lines ===== */
@@ -357,12 +353,20 @@ textarea {
   }
 }
 
-/* Stencil/Punched text effect */
+/* Stencil/Punched text effect - dark background for contrast */
 .text-stencil {
   position: relative;
   display: inline-block;
-  background: var(--neutral-100);
-  padding: 0 var(--space-sm);
+  background: var(--primary-deep);
+  color: #ffffff;
+  padding: 0.1em var(--space-sm);
+  border-radius: var(--radius-sm);
+}
+
+/* Text highlight - light background for unique elements */
+.text-highlight {
+  background: rgba(0, 80, 157, 0.1);
+  padding: 0.1em var(--space-xs);
   border-radius: var(--radius-sm);
 }
 

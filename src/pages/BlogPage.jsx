@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../components/PageHeader.css';
 import './BlogPage.css';
 
 const blogPosts = [
@@ -65,22 +67,27 @@ const blogPosts = [
 ];
 
 function BlogPage() {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <div className="blog-page">
-            {/* Hero */}
-            <section className="blog-page__hero">
+        <div className="page-wrapper">
+            <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
-                    <Link to="/" className="blog-page__back">← Back to Home</Link>
-                    <span className="section-label">Blog</span>
-                    <h1 className="blog-page__title">Insights & Articles</h1>
-                    <p className="blog-page__subtitle">
-                        Stay informed with our latest thinking on business strategy, technology, and leadership.
-                    </p>
+                    <h1 className="page-header__title">Insights & Articles</h1>
                 </div>
-            </section>
+            </div>
 
             {/* Posts Grid */}
-            <section className="blog-page__content page-section">
+            <section className="blog-page__content page-content">
                 <div className="container">
                     <div className="blog-page__grid">
                         {blogPosts.map((post) => (
@@ -112,3 +119,4 @@ function BlogPage() {
 }
 
 export default BlogPage;
+

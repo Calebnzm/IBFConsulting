@@ -79,7 +79,7 @@ const partnerCompanies = [
     'Britam', 'Centum', 'Co-operative Bank', 'Standard Media', 'Nation Media'
 ];
 
-function Reviews() {
+function Reviews({ showHeader = true }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [selectedReview, setSelectedReview] = useState(null);
@@ -110,13 +110,15 @@ function Reviews() {
     return (
         <section id="reviews" className="reviews section">
             <div className="reviews__container container">
-                {/* Header */}
-                <div className="reviews__header">
-                    <span className="section-label">Testimonials</span>
-                    <h2 className="reviews__title">
-                        Trusted by industry leaders.
-                    </h2>
-                </div>
+                {/* Header - conditionally rendered */}
+                {showHeader && (
+                    <div className="reviews__header">
+                        <span className="section-label">Testimonials</span>
+                        <h2 className="reviews__title">
+                            Trusted by industry leaders.
+                        </h2>
+                    </div>
+                )}
 
                 {/* Company Logos Carousel - Now integrated */}
                 <div className="reviews__partners">

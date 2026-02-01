@@ -70,8 +70,7 @@
     height: 140px;
     object-fit: cover;
     object-position: top;
-    filter: grayscale(100%);
-    transition: filter var(--transition-slow);
+    /* Native colors - no filter */
 }
 
 @media (min-width: 640px) {
@@ -81,9 +80,7 @@
     }
 }
 
-.team-card--featured:hover .team-card__image img {
-    filter: grayscale(0%);
-}
+/* No hover filter change needed */
 
 /* Carousel Section */
 .team__carousel {
@@ -119,26 +116,25 @@
     font-weight: 500;
 }
 
-/* Navigation Buttons - Matches Reviews Style */
+/* Navigation Buttons - Sharp corners, deep blue */
 .team__nav {
     width: 48px;
-    height: 48px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--white);
-    border: 1px solid var(--border-light);
-    border-radius: 50%;
+    background: var(--primary-deep);
+    border: none;
+    border-radius: 0;
     font-size: var(--text-xl);
-    color: var(--text-primary);
+    color: #ffffff;
     cursor: pointer;
     transition: all var(--transition-base);
 }
 
 .team__nav:hover {
-    background: var(--gradient-primary);
-    color: var(--text-inverse);
-    border-color: var(--primary-deep);
+    background: var(--light-blue);
+    color: #ffffff;
 }
 
 .team__nav-arrow {
@@ -212,12 +208,10 @@
     height: 200px;
     object-fit: cover;
     object-position: top;
-    filter: grayscale(100%);
-    transition: all var(--transition-slow);
+    /* Native colors - no filter */
 }
 
 .team-card--compact:hover .team-card__image img {
-    filter: grayscale(0%);
     transform: scale(1.02);
 }
 

@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import '../components/PageHeader.css';
 import './ServiceDetail.css';
 
 const servicesData = {
@@ -135,14 +137,24 @@ const servicesData = {
 function ServiceDetail() {
     const { id } = useParams();
     const service = servicesData[id];
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     if (!service) {
         return (
-            <div className="service-detail">
+            <div className="page-wrapper">
                 <div className="container">
                     <div className="service-detail__not-found">
                         <h1>Service not found</h1>
-                        <Link to="/#services" className="btn-solid">Back to Services</Link>
+                        <Link to="/services" className="btn-solid">Back to Services</Link>
                     </div>
                 </div>
             </div>
@@ -150,18 +162,12 @@ function ServiceDetail() {
     }
 
     return (
-        <div className="service-detail">
-            {/* Hero */}
-            <section className="service-detail__hero">
+        <div className="page-wrapper">
+            <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
-                    <Link to="/#services" className="service-detail__back">
-                        ← Back to Services
-                    </Link>
-                    <span className="section-label">Our Services</span>
-                    <h1 className="service-detail__title">{service.title}</h1>
-                    <p className="service-detail__subtitle">{service.subtitle}</p>
+                    <h1 className="page-header__title">{service.title}</h1>
                 </div>
-            </section>
+            </div>
 
             {/* Content */}
             <section className="service-detail__content page-section">

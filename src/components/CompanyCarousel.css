@@ -57,13 +57,10 @@
     height: 40px;
     width: auto;
     object-fit: contain;
-    filter: grayscale(100%);
-    transition: filter 0.3s ease;
+    /* Native colors - no filter */
 }
 
-.company-logo:hover img {
-    filter: grayscale(0%);
-}
+/* No hover filter change needed */
 
 .company-logo span {
     font-size: 1.5rem;

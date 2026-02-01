@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import '../components/PageHeader.css';
 import './ResourceDetail.css';
 
 const resourcesData = {
@@ -79,21 +81,24 @@ const defaultResource = (id) => ({
 function ResourceDetail() {
     const { id } = useParams();
     const resource = resourcesData[id] || defaultResource(id);
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
 
     return (
-        <div className="resource-detail">
-            {/* Hero */}
-            <section className="resource-detail__hero">
+        <div className="page-wrapper">
+            <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
-                    <Link to="/resources" className="resource-detail__back">← Back to Resources</Link>
-                    <span className="resource-detail__type">{resource.type}</span>
-                    <h1 className="resource-detail__title">{resource.title}</h1>
-                    <p className="resource-detail__description">{resource.description}</p>
-                    <a href={resource.downloadUrl} className="btn-solid resource-detail__cta">
-                        DOWNLOAD NOW
-                    </a>
+                    <h1 className="page-header__title">{resource.title}</h1>
                 </div>
-            </section>
+            </div>
 
             {/* Image */}
             <div className="resource-detail__image">

@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import '../components/PageHeader.css';
 import './ResourcesPage.css';
 
 const resources = [
@@ -53,22 +55,27 @@ const resources = [
 ];
 
 function ResourcesPage() {
+    const [isScrolled, setIsScrolled] = useState(false);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            setIsScrolled(window.scrollY > 50);
+        };
+
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
     return (
-        <div className="resources-page">
-            {/* Hero */}
-            <section className="resources-page__hero">
+        <div className="page-wrapper">
+            <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
-                    <Link to="/" className="resources-page__back">← Back to Home</Link>
-                    <span className="section-label">Resources</span>
-                    <h1 className="resources-page__title">Knowledge Hub</h1>
-                    <p className="resources-page__subtitle">
-                        Access our library of expert insights, research papers, case studies, and practical guides.
-                    </p>
+                    <h1 className="page-header__title">Knowledge Hub</h1>
                 </div>
-            </section>
+            </div>
 
             {/* Resources Grid */}
-            <section className="resources-page__content page-section">
+            <section className="resources-page__content page-content">
                 <div className="container">
                     <div className="resources-page__grid">
                         {resources.map((resource) => (
@@ -95,3 +102,4 @@ function ResourcesPage() {
 }
 
 export default ResourcesPage;
+

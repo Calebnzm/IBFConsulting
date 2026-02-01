@@ -1,0 +1,5 @@
+/* ContactPage - Standalone page layout */
+.contact-page {
+    padding-top: var(--navbar-height);
+    min-height: 100vh;
+}

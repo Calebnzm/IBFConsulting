@@ -114,15 +114,15 @@
     position: absolute;
     top: 120px;
     width: 48px;
-    height: 48px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--white);
-    border: 1px solid var(--border-light);
-    border-radius: 50%;
+    background: var(--primary-deep);
+    border: none;
+    border-radius: 0;
     font-size: var(--text-xl);
-    color: var(--text-primary);
+    color: #ffffff;
     cursor: pointer;
     transition: all var(--transition-base);
     z-index: 10;
@@ -137,9 +137,8 @@
 }
 
 .reviews__nav:hover {
-    background: var(--gradient-primary);
-    color: var(--text-inverse);
-    border-color: var(--primary-deep);
+    background: var(--light-blue);
+    color: #ffffff;
 }
 
 .reviews__track {
@@ -253,7 +252,7 @@
 .reviews__dot--active {
     width: 24px;
     border-radius: 4px;
-    background: var(--gradient-primary);
+    background: var(--primary-deep);
 }
 
 /* Modal */

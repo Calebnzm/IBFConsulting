@@ -1,0 +1,5 @@
+/* TeamPage - Standalone page layout */
+.team-page {
+    padding-top: var(--navbar-height);
+    min-height: 100vh;
+}

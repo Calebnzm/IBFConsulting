@@ -92,7 +92,7 @@ const teamMembers = [
     }
 ];
 
-function Team() {
+function Team({ showHeader = true }) {
     const [currentPage, setCurrentPage] = useState(0);
 
     // Separate CEO from other members
@@ -116,19 +116,21 @@ function Team() {
             <div className="team__container container">
                 {/* Top Row: Header + CEO */}
                 <div className="team__top">
-                    {/* Header */}
-                    <div className="team__header">
-                        <span className="section-label">Our Team</span>
-                        <h2 className="team__title">
-                            The People Behind<br />the Excellence
-                        </h2>
-                        <div className="team__description">
-                            <p>
-                                Our team is made of strategists, analysts, and innovators who believe
-                                business transformation should feel effortless.
-                            </p>
+                    {/* Header - conditionally rendered */}
+                    {showHeader && (
+                        <div className="team__header">
+                            <span className="section-label">Our Team</span>
+                            <h2 className="team__title">
+                                The People Behind<br />the Excellence
+                            </h2>
+                            <div className="team__description">
+                                <p>
+                                    Our team is made of strategists, analysts, and innovators who believe
+                                    business transformation should feel effortless.
+                                </p>
+                            </div>
                         </div>
-                    </div>
+                    )}
 
                     {/* CEO Featured Card */}
                     <article className="team-card team-card--featured">

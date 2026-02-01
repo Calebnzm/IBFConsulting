@@ -4,12 +4,12 @@ import './Navbar.css';
 
 const navLinks = [
   { name: 'HOME', href: '/' },
-  { name: 'SERVICES', href: '/#services' },
-  { name: 'TESTIMONIALS', href: '/#reviews' },
-  { name: 'RESOURCES', href: '/#resources' },
-  { name: 'BLOG', href: '/#blog' },
-  { name: 'TEAM', href: '/#team' },
-  { name: 'CONTACT', href: '/#contact' }
+  { name: 'SERVICES', href: '/services' },
+  { name: 'TESTIMONIALS', href: '/testimonials' },
+  { name: 'RESOURCES', href: '/resources' },
+  { name: 'BLOG', href: '/blog' },
+  { name: 'TEAM', href: '/team' },
+  { name: 'CONTACT', href: '/contact' }
 ];
 
 function Navbar() {
@@ -26,70 +26,26 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Custom smooth scroll with configurable duration
-  const smoothScrollTo = (targetPosition, duration = 1000) => {
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime = null;
-
-    function animation(currentTime) {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const progress = Math.min(timeElapsed / duration, 1);
-
-      // Bell curve easing (ease-in-out): starts slow, speeds up in middle, slows at end
-      // Using sine-based easing for smooth bell curve feel
-      const easeInOutSine = -(Math.cos(Math.PI * progress) - 1) / 2;
-
-      window.scrollTo(0, startPosition + distance * easeInOutSine);
-
-      if (timeElapsed < duration) {
-        requestAnimationFrame(animation);
-      }
-    }
-
-    requestAnimationFrame(animation);
+  // Close mobile menu when navigating
+  const handleNavClick = () => {
+    setIsMobileMenuOpen(false);
   };
 
-  // Handle smooth scroll for hash links and home
-  const handleNavClick = (e, href) => {
-    setIsMobileMenuOpen(false);
-
-    // Handle home link
+  // Check if link is active
+  const isActive = (href) => {
     if (href === '/') {
-      if (location.pathname === '/') {
-        e.preventDefault();
-        smoothScrollTo(0, 800);
-      }
-      return;
+      return location.pathname === '/';
     }
-
-    // Handle hash links
-    if (href.includes('#')) {
-      const [path, hash] = href.split('#');
-
-      // If we're on the home page and the link is for a home section
-      if ((path === '/' || path === '') && location.pathname === '/') {
-        e.preventDefault();
-        const element = document.getElementById(hash);
-        if (element) {
-          const headerOffset = 80;
-          const elementPosition = element.getBoundingClientRect().top;
-          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-          smoothScrollTo(offsetPosition, 1200);
-        }
-      }
-      // If we are on another page, let the Link component handle navigation
-    }
+    return location.pathname.startsWith(href);
   };
 
   return (
     <header className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__container container">
         {/* Logo */}
-        <Link to="/" className="navbar__logo">
+        <Link to="/" className="navbar__logo" onClick={handleNavClick}>
           <span className="navbar__logo-icon">◈</span>
-          <span className="navbar__logo-text">PTConsulting</span>
+          <span className="navbar__logo-text">IBFConsulting</span>
         </Link>
 
         {/* Desktop Navigation - Centered */}
@@ -99,8 +55,7 @@ function Navbar() {
               <li key={link.name}>
                 <Link
                   to={link.href}
-                  className="navbar__link"
-                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`navbar__link ${isActive(link.href) ? 'navbar__link--active' : ''}`}
                 >
                   {link.name}
                 </Link>
@@ -128,8 +83,8 @@ function Navbar() {
               <li key={link.name}>
                 <Link
                   to={link.href}
-                  className="navbar__mobile-link"
-                  onClick={(e) => handleNavClick(e, link.href)}
+                  className={`navbar__mobile-link ${isActive(link.href) ? 'navbar__mobile-link--active' : ''}`}
+                  onClick={handleNavClick}
                 >
                   {link.name}
                 </Link>
@@ -143,3 +98,4 @@ function Navbar() {
 }
 
 export default Navbar;
+

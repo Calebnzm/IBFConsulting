@@ -1,4 +1,4 @@
-/* ===== Navbar - Bold Colorful Design ===== */
+/* ===== Navbar - Same color as Footer ===== */
 .navbar {
     position: fixed;
     top: 0;
@@ -6,14 +6,15 @@
     right: 0;
     z-index: 100;
     padding: var(--space-lg) 0;
-    background: transparent;
-    transition: all var(--transition-base);
+    background: var(--bg-dark);
+    transition: padding 0.3s ease;
+    will-change: padding;
 }
 
 .navbar--scrolled {
     padding: var(--space-md) 0;
     background: var(--bg-dark);
-    box-shadow: 0 4px 20px rgba(0, 80, 157, 0.3);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }
 
 .navbar__container {
@@ -78,6 +79,11 @@
     color: var(--primary-cream);
 }
 
+.navbar__link--active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
 /* Auth Buttons */
 .navbar__auth {
     display: none;
@@ -109,16 +115,14 @@
 }
 
 .navbar__auth-btn--signup {
-    color: var(--text-inverse);
-    background: var(--primary-cream);
-    color: var(--primary-deep);
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.2);
     font-weight: 600;
-    border-radius: var(--radius-md);
+    border-radius: 0;
 }
 
 .navbar__auth-btn--signup:hover {
-    background: var(--light-cream);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.3);
 }
 
 /* Mobile Toggle */
@@ -162,7 +166,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: var(--bg-dark);
+    background: var(--hero-blue);
     padding: var(--space-2xl);
     transform: translateY(-100%);
     opacity: 0;
@@ -201,6 +205,11 @@
 
 .navbar__mobile-link:hover {
     color: var(--primary-cream);
+}
+
+.navbar__mobile-link--active {
+    color: #ffffff;
+    font-weight: 600;
 }
 
 .navbar__mobile-auth {

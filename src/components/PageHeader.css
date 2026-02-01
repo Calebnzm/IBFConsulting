@@ -1,0 +1,70 @@
+/* ===== Shared Page Header Styles ===== */
+/* Reusable sticky header that syncs with navbar */
+
+.page-wrapper {
+    min-height: 100vh;
+    background: #ffffff;
+    padding-top: var(--navbar-height);
+}
+
+/* Sticky Page Header - syncs with navbar */
+.page-header {
+    position: sticky;
+    top: 88px;
+    z-index: 50;
+    padding: var(--space-xl) 0;
+    background: #ffffff;
+    border-bottom: none;
+    transition: top 0.3s ease, padding 0.3s ease;
+    will-change: top, padding;
+}
+
+/* Extend background upward to cover any gap during transitions */
+.page-header::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    left: 0;
+    right: 0;
+    height: 100px;
+    background: inherit;
+    z-index: -1;
+}
+
+/* Scrolled state - shrinks with navbar */
+.page-header--scrolled {
+    top: 56px;
+    padding: var(--space-md) 0;
+}
+
+.page-header__title {
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--primary-deep);
+    margin: 0;
+    transition: font-size var(--transition-base);
+}
+
+@media (min-width: 768px) {
+    .page-header__title {
+        font-size: var(--text-3xl);
+    }
+}
+
+/* Scrolled title - smaller text */
+.page-header--scrolled .page-header__title {
+    font-size: var(--text-lg);
+}
+
+@media (min-width: 768px) {
+    .page-header--scrolled .page-header__title {
+        font-size: var(--text-xl);
+    }
+}
+
+/* Page content area */
+.page-content {
+    padding-top: 0;
+    padding-bottom: var(--space-4xl);
+}

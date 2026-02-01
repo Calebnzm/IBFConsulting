@@ -33,7 +33,7 @@ const services = [
     }
 ];
 
-function Services() {
+function Services({ showHeader = true }) {
     const [currentIndex, setCurrentIndex] = useState(0);
 
     const nextService = () => {
@@ -47,13 +47,14 @@ function Services() {
     return (
         <section id="services" className="services section">
             <div className="services__container container">
-                {/* Header */}
-                <div className="services__header">
-                    <span className="section-label">Our Expertise</span>
-                    <h2 className="services__title">
-                        Strategic solutions for<br />modern enterprises.
-                    </h2>
-                </div>
+                {/* Header - conditionally rendered */}
+                {showHeader && (
+                    <div className="services__header">
+                        <h2 className="services__title">
+                            Strategic solutions for modern enterprises.
+                        </h2>
+                    </div>
+                )}
 
                 {/* Services Carousel */}
                 <div className="services__carousel">

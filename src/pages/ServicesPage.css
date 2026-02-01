@@ -1,0 +1,55 @@
+/* ServicesPage - Standalone page layout */
+.services-page {
+    min-height: 100vh;
+    background: var(--bg-secondary);
+    padding-top: var(--navbar-height);
+}
+
+/* Sticky Page Header - syncs with navbar */
+.services-page__header {
+    position: sticky;
+    top: 88px;
+    z-index: 50;
+    padding: var(--space-xl) 0;
+    background: var(--bg-secondary);
+    border-bottom: 1px solid var(--border-light);
+    transition: top var(--transition-base), padding var(--transition-base);
+}
+
+/* Scrolled state - shrinks with navbar */
+.services-page__header--scrolled {
+    top: 56px;
+    padding: var(--space-md) 0;
+}
+
+.services-page__title {
+    font-size: var(--text-2xl);
+    font-weight: 500;
+    line-height: 1.2;
+    color: var(--primary-deep);
+    margin: 0;
+    transition: font-size var(--transition-base);
+}
+
+@media (min-width: 768px) {
+    .services-page__title {
+        font-size: var(--text-3xl);
+    }
+}
+
+/* Scrolled title - smaller text */
+.services-page__header--scrolled .services-page__title {
+    font-size: var(--text-lg);
+}
+
+@media (min-width: 768px) {
+    .services-page__header--scrolled .services-page__title {
+        font-size: var(--text-xl);
+    }
+}
+
+/* Services section content */
+.services-page .services {
+    padding-top: var(--space-2xl);
+    padding-bottom: var(--space-4xl);
+}
