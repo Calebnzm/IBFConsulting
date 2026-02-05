@@ -46,6 +46,27 @@
     transition: font-size var(--transition-base);
 }
 
+.page-header__back {
+    display: inline-block;
+    font-size: var(--text-sm);
+    font-weight: 500;
+    color: var(--neutral-600);
+    margin-bottom: var(--space-xs);
+    text-decoration: none;
+    transition: color var(--transition-base);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.page-header__back:hover {
+    color: var(--primary-default);
+}
+
+/* Hide back button when scrolled to restore shrink effect */
+.page-header--scrolled .page-header__back {
+    display: none;
+}
+
 @media (min-width: 768px) {
     .page-header__title {
         font-size: var(--text-3xl);

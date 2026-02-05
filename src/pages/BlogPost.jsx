@@ -129,6 +129,7 @@ function BlogPost() {
         <article className="page-wrapper">
             <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
+                    <Link to="/blog" className="page-header__back">← Back to Blog</Link>
                     <h1 className="page-header__title">{post.title}</h1>
                 </div>
             </div>

@@ -165,6 +165,7 @@ function ServiceDetail() {
         <div className="page-wrapper">
             <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
+                    <Link to="/services" className="page-header__back">← Back to Services</Link>
                     <h1 className="page-header__title">{service.title}</h1>
                 </div>
             </div>
@@ -202,7 +203,7 @@ function ServiceDetail() {
                                 </ul>
                             </div>
 
-                            <Link to="/#contact" className="btn-solid service-detail__cta">
+                            <Link to="/contact" className="btn-solid service-detail__cta">
                                 GET STARTED
                             </Link>
                         </div>

@@ -3,9 +3,9 @@ import './Footer.css';
 
 const footerLinks = {
     company: [
-        { name: 'About', href: '#' },
-        { name: 'Careers', href: '#' },
-        { name: 'Contact', href: '/#contact' },
+        { name: 'About', href: '/' },
+        { name: 'Careers', href: '/contact' },
+        { name: 'Contact', href: '/contact' },
     ],
     services: [
         { name: 'Strategy', href: '/services/strategy-consulting' },
@@ -15,7 +15,7 @@ const footerLinks = {
     resources: [
         { name: 'Blog', href: '/blog' },
         { name: 'Resources', href: '/resources' },
-        { name: 'Case Studies', href: '/#reviews' },
+        { name: 'Case Studies', href: '/testimonials' },
     ],
 };
 

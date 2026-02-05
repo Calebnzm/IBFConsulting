@@ -96,6 +96,7 @@ function ResourceDetail() {
         <div className="page-wrapper">
             <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
                 <div className="container">
+                    <Link to="/resources" className="page-header__back">← Back to Resources</Link>
                     <h1 className="page-header__title">{resource.title}</h1>
                 </div>
             </div>
@@ -125,7 +126,7 @@ function ResourceDetail() {
                     </div>
 
                     <div className="resource-detail__footer">
-                        <Link to="/#contact" className="btn-corner">
+                        <Link to="/contact" className="btn-corner">
                             <span>GET IN TOUCH</span>
                             <span className="corner-bl"></span>
                             <span className="corner-br"></span>

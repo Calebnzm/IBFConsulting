@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 
 function Hero() {
@@ -135,9 +136,9 @@ function Hero() {
                         happen by chance — it will happen through strategic excellence.
                     </p>
 
-                    <a href="#services" className="hero__cta btn-solid">
+                    <Link to="/services" className="hero__cta btn-solid">
                         OUR SERVICES
-                    </a>
+                    </Link>
                 </div>
             </div>
 
