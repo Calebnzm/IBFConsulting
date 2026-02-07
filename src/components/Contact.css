@@ -151,3 +151,43 @@ a.contact__info-value:hover {
     align-self: flex-start;
     margin-top: var(--space-md);
 }
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+    .contact__header {
+        position: static;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact__grid {
+        gap: var(--space-xl);
+    }
+
+    .contact__title {
+        font-size: var(--text-2xl);
+    }
+
+    .contact__description {
+        font-size: var(--text-sm);
+        margin-bottom: var(--space-lg);
+    }
+
+    .contact__form-wrapper {
+        padding: var(--space-lg);
+    }
+
+    .contact__form {
+        gap: var(--space-md);
+    }
+
+    .form-group input,
+    .form-group textarea {
+        padding: var(--space-sm) var(--space-md);
+    }
+
+    .contact__submit {
+        width: 100%;
+        text-align: center;
+    }
+}

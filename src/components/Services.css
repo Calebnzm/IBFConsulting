@@ -222,3 +222,58 @@
 .services__dot:hover {
     background: var(--primary-deep);
 }
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+    .services__carousel {
+        padding: 0 50px;
+    }
+
+    .services__nav {
+        width: 40px;
+        height: 32px;
+        top: 140px;
+    }
+
+    .services__track {
+        min-height: 520px;
+    }
+
+    .service-card {
+        padding: var(--space-md);
+    }
+
+    .service-card__image img {
+        height: 200px;
+    }
+}
+
+@media (max-width: 480px) {
+    .services__carousel {
+        padding: 0 40px;
+    }
+
+    .services__nav {
+        width: 32px;
+        height: 28px;
+        font-size: var(--text-base);
+        top: 120px;
+    }
+
+    .services__track {
+        min-height: 480px;
+    }
+
+    .service-card__title {
+        font-size: var(--text-xl);
+    }
+
+    .service-card__description {
+        font-size: var(--text-sm);
+        line-height: 1.6;
+    }
+
+    .service-card__features {
+        margin-bottom: var(--space-md);
+    }
+}

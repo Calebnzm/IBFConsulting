@@ -203,6 +203,28 @@ textarea {
   display: none;
 }
 
+/* ===== Small Screen Overrides ===== */
+@media (max-width: 480px) {
+  :root {
+    --space-xl: 1rem;
+    --space-2xl: 1.5rem;
+    --space-3xl: 2rem;
+    --space-4xl: 3rem;
+  }
+
+  .container {
+    padding: 0 var(--space-md);
+  }
+
+  .section {
+    padding: var(--space-2xl) 0;
+  }
+
+  .headline-xl {
+    font-size: var(--text-4xl);
+  }
+}
+
 /* Section Labels - Botronics Style */
 .section-label {
   display: inline-flex;

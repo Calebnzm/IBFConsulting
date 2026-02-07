@@ -34,6 +34,24 @@
     }
 }
 
+@media (max-width: 480px) {
+    .blog-page {
+        padding-top: 80px;
+    }
+
+    .blog-page__hero {
+        padding: var(--space-xl) 0;
+    }
+
+    .blog-page__title {
+        font-size: var(--text-2xl);
+    }
+
+    .blog-page__subtitle {
+        font-size: var(--text-base);
+    }
+}
+
 .blog-page__subtitle {
     font-size: var(--text-lg);
     color: var(--text-secondary);

@@ -369,3 +369,68 @@
     font-size: var(--text-sm);
     color: var(--text-muted);
 }
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+    .reviews__carousel {
+        padding: 0 50px var(--space-2xl);
+    }
+
+    .reviews__nav {
+        width: 40px;
+        height: 32px;
+        top: 100px;
+    }
+
+    .reviews__track {
+        min-height: 360px;
+    }
+
+    .review-card {
+        padding: var(--space-lg);
+    }
+
+    .review-card__text {
+        font-size: var(--text-base);
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews__container {
+        padding-top: var(--space-xl);
+    }
+
+    .reviews__carousel {
+        padding: 0 40px var(--space-xl);
+    }
+
+    .reviews__nav {
+        width: 32px;
+        height: 28px;
+        font-size: var(--text-base);
+        top: 80px;
+    }
+
+    .reviews__track {
+        min-height: 380px;
+    }
+
+    .reviews__title {
+        font-size: var(--text-2xl);
+    }
+
+    .review-card__text {
+        font-size: var(--text-sm);
+        line-height: 1.6;
+    }
+
+    .reviews__modal-content {
+        max-height: 85vh;
+    }
+
+    .reviews__modal-header,
+    .reviews__modal-body,
+    .reviews__modal-footer {
+        padding: var(--space-lg);
+    }
+}

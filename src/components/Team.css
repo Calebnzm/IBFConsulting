@@ -267,3 +267,60 @@
 .team-card__social-link:hover {
     color: var(--primary-purple);
 }
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+    .team__carousel-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .team__nav {
+        width: 40px;
+        height: 32px;
+    }
+
+    .team__members-track {
+        min-height: 360px;
+    }
+
+    .team-card--compact .team-card__image img {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .team__title {
+        font-size: var(--text-xl);
+    }
+
+    .team__nav {
+        width: 36px;
+        height: 28px;
+        font-size: var(--text-base);
+    }
+
+    .team__carousel-nav {
+        gap: var(--space-sm);
+    }
+
+    .team__members-track {
+        min-height: 340px;
+    }
+
+    .team-card--featured {
+        padding: var(--space-sm);
+    }
+
+    .team-card--compact {
+        padding: var(--space-sm);
+    }
+
+    .team-card__name {
+        font-size: var(--text-base);
+    }
+
+    .team-card__bio-short {
+        font-size: var(--text-xs);
+    }
+}

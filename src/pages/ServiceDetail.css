@@ -162,3 +162,53 @@
     width: 100%;
     text-align: center;
 }
+
+/* Mobile Optimizations */
+@media (max-width: 640px) {
+    .service-detail__sidebar {
+        position: static;
+    }
+}
+
+@media (max-width: 480px) {
+    .service-detail {
+        padding-top: 80px;
+    }
+
+    .service-detail__hero {
+        padding: var(--space-xl) 0;
+    }
+
+    .service-detail__title {
+        font-size: var(--text-2xl);
+    }
+
+    .service-detail__subtitle {
+        font-size: var(--text-base);
+    }
+
+    .service-detail__grid {
+        gap: var(--space-xl);
+    }
+
+    .service-detail__description {
+        font-size: var(--text-base);
+        margin-bottom: var(--space-xl);
+    }
+
+    .service-detail__detail {
+        padding: var(--space-md);
+    }
+
+    .service-detail__detail-title {
+        font-size: var(--text-lg);
+    }
+
+    .service-detail__image {
+        height: 200px;
+    }
+
+    .service-detail__process {
+        padding: var(--space-md);
+    }
+}

@@ -225,3 +225,24 @@
     text-align: center;
     padding: var(--space-md);
 }
+
+/* Mobile Optimizations */
+@media (max-width: 480px) {
+    .navbar {
+        padding: var(--space-md) 0;
+    }
+
+    .navbar__mobile-menu {
+        top: 60px;
+        padding: var(--space-lg);
+    }
+
+    .navbar__mobile-link {
+        padding: var(--space-lg) 0;
+        font-size: var(--text-base);
+    }
+
+    .navbar__mobile-auth {
+        flex-direction: column;
+    }
+}
