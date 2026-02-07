@@ -1,19 +1,22 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import { client, queries, urlFor } from '../lib/sanity';
+import LoadingSpinner from '../components/LoadingSpinner';
 import '../components/PageHeader.css';
 import './ResourceDetail.css';
 
-const resourcesData = {
+// Fallback data
+const fallbackResourcesData = {
     'digital-transformation-playbook': {
-        id: 'digital-transformation-playbook',
+        slug: 'digital-transformation-playbook',
         type: 'Whitepaper',
         title: 'Digital Transformation Playbook 2024',
         description: 'A comprehensive guide to navigating digital change in your organization.',
-        image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop',
+        image: null,
         downloadUrl: '#',
         sections: [
             {
-                title: 'What You\'ll Learn',
+                title: "What You'll Learn",
                 content: 'This playbook covers the essential frameworks, tools, and strategies needed to successfully transform your business for the digital age.'
             },
             {
@@ -33,11 +36,11 @@ const resourcesData = {
         ]
     },
     'techventures-case-study': {
-        id: 'techventures-case-study',
+        slug: 'techventures-case-study',
         type: 'Case Study',
         title: 'How We Helped TechVentures Scale',
         description: 'A detailed look at how strategic consulting led to 150% revenue growth.',
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&h=600&fit=crop',
+        image: null,
         downloadUrl: '#',
         sections: [
             {
@@ -62,55 +65,80 @@ const resourcesData = {
     }
 };
 
-// Default resource for IDs not in the data
-const defaultResource = (id) => ({
-    id,
-    type: 'Resource',
-    title: id.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-    description: 'This resource provides valuable insights for your business.',
-    image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=1200&h=600&fit=crop',
-    downloadUrl: '#',
-    sections: [
-        {
-            title: 'Overview',
-            content: 'This resource is being finalized. Check back soon for the complete content, or contact us to discuss your specific needs.'
-        }
-    ]
-});
+const defaultImage = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop';
 
 function ResourceDetail() {
     const { id } = useParams();
-    const resource = resourcesData[id] || defaultResource(id);
-    const [isScrolled, setIsScrolled] = useState(false);
+    const [resource, setResource] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
+        async function fetchResource() {
+            try {
+                const data = await client.fetch(queries.resourceBySlug(id));
+                if (data) {
+                    setResource(data);
+                } else {
+                    setResource(fallbackResourcesData[id] || createDefaultResource(id));
+                }
+            } catch (error) {
+                console.error('Error fetching resource:', error);
+                setResource(fallbackResourcesData[id] || createDefaultResource(id));
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchResource();
+    }, [id]);
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
+    const createDefaultResource = (slug) => ({
+        slug,
+        type: 'Resource',
+        title: slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
+        description: 'This resource provides valuable insights for your business.',
+        image: null,
+        downloadUrl: '#',
+        sections: [
+            {
+                title: 'Overview',
+                content: 'This resource is being finalized. Check back soon for the complete content.'
+            }
+        ]
+    });
+
+    const getImageUrl = () => {
+        if (resource?.image) {
+            return urlFor(resource.image).width(1200).height(600).url();
+        }
+        return defaultImage;
+    };
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <div className="page-wrapper">
-            <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
+            <div className="page-header">
                 <div className="container">
-                    <Link to="/resources" className="page-header__back">← Back to Resources</Link>
+                    <Link to="/resources" className="page-header__back">
+                        <span className="page-header__back-arrow">←</span>
+                        Back
+                    </Link>
                     <h1 className="page-header__title">{resource.title}</h1>
                 </div>
             </div>
 
             {/* Image */}
             <div className="resource-detail__image">
-                <img src={resource.image} alt={resource.title} />
+                <img src={getImageUrl()} alt={resource.title} />
             </div>
 
             {/* Content */}
             <section className="resource-detail__content page-section">
                 <div className="container">
                     <div className="resource-detail__sections">
-                        {resource.sections.map((section, index) => (
+                        {resource.sections?.map((section, index) => (
                             <div key={index} className="resource-detail__section">
                                 <h2>{section.title}</h2>
                                 {section.content && <p>{section.content}</p>}

@@ -1,88 +1,132 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { client, queries, urlFor } from '../lib/sanity';
+import LoadingSpinner from './LoadingSpinner';
 import './Reviews.css';
 
-const reviews = [
+// Fallback data
+const fallbackReviews = [
     {
-        id: 1,
+        _id: '1',
         name: 'Wanjiku Kimani',
         role: 'CEO',
         company: 'TechVentures Kenya',
         logo: 'TechVentures',
-        image: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face',
-        text: 'PT Consulting transformed our business strategy completely. Their insights helped us achieve 150% revenue growth in just 18 months. Truly exceptional partners.',
+        image: null,
+        text: 'IBF Consulting transformed our business strategy completely. Their insights helped us achieve 150% revenue growth in just 18 months. Truly exceptional partners.',
         project: {
             title: 'Strategic Growth Initiative',
-            description: 'Complete business strategy overhaul including market analysis, competitive positioning, and operational optimization. The engagement spanned 18 months and resulted in significant revenue growth.',
+            description: 'Complete business strategy overhaul including market analysis, competitive positioning, and operational optimization.',
             results: ['150% revenue growth', '40% operational efficiency improvement', 'Successful regional expansion']
         }
     },
     {
-        id: 2,
+        _id: '2',
         name: 'Ochieng Otieno',
         role: 'CFO',
         company: 'East Africa Logistics',
         logo: 'EAL',
-        image: 'https://images.unsplash.com/photo-1507537362848-9c7e70b725c6?w=100&h=100&fit=crop&crop=face',
+        image: null,
         text: 'The analytics team provided data-driven recommendations that saved us millions. Their attention to detail and strategic thinking is unmatched in the industry.',
         project: {
             title: 'Data Analytics Transformation',
-            description: 'Implementation of comprehensive analytics framework including dashboard development, predictive modeling, and real-time reporting infrastructure.',
+            description: 'Implementation of comprehensive analytics framework including dashboard development and predictive modeling.',
             results: ['KES 50M+ in cost savings', 'Real-time reporting implementation', 'Predictive accuracy of 94%']
         }
     },
     {
-        id: 3,
+        _id: '3',
         name: 'Amina Mohamed',
         role: 'Director of Operations',
         company: 'Nairobi Innovation Hub',
         logo: 'iHub',
-        image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop&crop=face',
-        text: 'Working with PT Consulting on our digital transformation was a game-changer. They understood our needs and delivered beyond expectations.',
+        image: null,
+        text: 'Working with IBF Consulting on our digital transformation was a game-changer. They understood our needs and delivered beyond expectations.',
         project: {
             title: 'Digital Transformation Program',
-            description: 'End-to-end digital transformation including technology stack modernization, process automation, and change management.',
+            description: 'End-to-end digital transformation including technology stack modernization and process automation.',
             results: ['50% reduction in manual processes', 'Cloud migration completed', 'New customer portal launched']
         }
     },
     {
-        id: 4,
+        _id: '4',
         name: 'Kamau Njoroge',
         role: 'Managing Partner',
         company: 'Savannah Capital',
         logo: 'Savannah',
-        image: 'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&h=100&fit=crop&crop=face',
+        image: null,
         text: 'Their risk management expertise protected our portfolio during volatile times. Highly recommend their strategic advisory services.',
         project: {
             title: 'Risk Management Framework',
-            description: 'Development and implementation of comprehensive risk management framework for investment portfolio protection.',
+            description: 'Development of comprehensive risk management framework for investment portfolio protection.',
             results: ['Risk exposure reduced by 35%', 'Portfolio protected during market volatility', 'New compliance processes established']
         }
     },
     {
-        id: 5,
+        _id: '5',
         name: 'Zainab Abdi',
         role: 'VP of Strategy',
         company: 'Coastal Solutions',
         logo: 'Coastal',
-        image: 'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop&crop=face',
+        image: null,
         text: 'The leadership development program they designed for our executives was transformative. Our team is now more aligned and effective than ever.',
         project: {
             title: 'Leadership Excellence Program',
-            description: 'Custom leadership development program for executive team including coaching, workshops, and ongoing support.',
+            description: 'Custom leadership development program for executive team including coaching and workshops.',
             results: ['Executive alignment improved', 'Leadership effectiveness score +45%', 'Succession planning established']
         }
     }
 ];
 
-const partnerCompanies = [
+const fallbackPartnerCompanies = [
     'Safaricom', 'Equity Bank', 'KCB Group', 'EABL', 'Kenya Airways',
     'Britam', 'Centum', 'Co-operative Bank', 'Standard Media', 'Nation Media'
+];
+
+const defaultImages = [
+    'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1507537362848-9c7e70b725c6?w=100&h=100&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=100&h=100&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=100&h=100&fit=crop&crop=face',
+    'https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=100&h=100&fit=crop&crop=face'
 ];
 
 function Reviews({ showHeader = true }) {
     const [activeIndex, setActiveIndex] = useState(0);
     const [showModal, setShowModal] = useState(false);
     const [selectedReview, setSelectedReview] = useState(null);
+    const [reviews, setReviews] = useState([]);
+    const [partnerCompanies, setPartnerCompanies] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const [testimonialsData, partnersData] = await Promise.all([
+                    client.fetch(queries.allTestimonials),
+                    client.fetch(queries.allPartnerCompanies)
+                ]);
+
+                if (testimonialsData && testimonialsData.length > 0) {
+                    setReviews(testimonialsData);
+                } else {
+                    setReviews(fallbackReviews);
+                }
+
+                if (partnersData && partnersData.length > 0) {
+                    setPartnerCompanies(partnersData.map(p => p.name));
+                } else {
+                    setPartnerCompanies(fallbackPartnerCompanies);
+                }
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+                setReviews(fallbackReviews);
+                setPartnerCompanies(fallbackPartnerCompanies);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchData();
+    }, []);
 
     const nextReview = () => {
         setActiveIndex((prev) => (prev + 1) % reviews.length);
@@ -104,8 +148,21 @@ function Reviews({ showHeader = true }) {
         document.body.style.overflow = 'auto';
     };
 
-    // Duplicate for infinite scroll effect
-    const carouselItems = [...partnerCompanies, ...partnerCompanies];
+    const getImageUrl = (review, index) => {
+        if (review.image) {
+            return urlFor(review.image).width(100).height(100).url();
+        }
+        return defaultImages[index % defaultImages.length];
+    };
+
+    // Create enough copies for truly continuous scrolling (at least 3 full sets)
+    const carouselItems = partnerCompanies.length > 0
+        ? [...partnerCompanies, ...partnerCompanies, ...partnerCompanies, ...partnerCompanies]
+        : [];
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <section id="reviews" className="reviews section">
@@ -120,16 +177,18 @@ function Reviews({ showHeader = true }) {
                     </div>
                 )}
 
-                {/* Company Logos Carousel - Now integrated */}
-                <div className="reviews__partners">
-                    <div className="reviews__partners-track">
-                        {carouselItems.map((company, index) => (
-                            <div key={`${company}-${index}`} className="reviews__partner-logo">
-                                <span>{company}</span>
-                            </div>
-                        ))}
+                {/* Company Logos Carousel - Only show if there are partners */}
+                {carouselItems.length > 0 && (
+                    <div className="reviews__partners">
+                        <div className="reviews__partners-track">
+                            {carouselItems.map((company, index) => (
+                                <div key={`${company}-${index}`} className="reviews__partner-logo">
+                                    <span>{company}</span>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                )}
 
                 {/* Testimonial Carousel */}
                 <div className="reviews__carousel">
@@ -140,7 +199,7 @@ function Reviews({ showHeader = true }) {
                     <div className="reviews__track">
                         {reviews.map((review, index) => (
                             <div
-                                key={review.id}
+                                key={review._id}
                                 className={`review-card ${index === activeIndex ? 'review-card--active' : ''}`}
                                 style={{
                                     transform: `translateX(${(index - activeIndex) * 100}%)`,
@@ -150,7 +209,7 @@ function Reviews({ showHeader = true }) {
                                     "{review.text}"
                                 </blockquote>
                                 <div className="review-card__author">
-                                    <img src={review.image} alt={review.name} className="review-card__avatar" />
+                                    <img src={getImageUrl(review, index)} alt={review.name} className="review-card__avatar" />
                                     <div className="review-card__info">
                                         <h4 className="review-card__name">{review.name}</h4>
                                         <p className="review-card__role">{review.role}, {review.company}</p>
@@ -192,14 +251,14 @@ function Reviews({ showHeader = true }) {
                         <button className="reviews__modal-close" onClick={closeModal}>×</button>
                         <div className="reviews__modal-header">
                             <span className="section-label">Case Study</span>
-                            <h3>{selectedReview.project.title}</h3>
+                            <h3>{selectedReview.project?.title}</h3>
                             <p className="reviews__modal-company">{selectedReview.company}</p>
                         </div>
                         <div className="reviews__modal-body">
-                            <p>{selectedReview.project.description}</p>
+                            <p>{selectedReview.project?.description}</p>
                             <h4>Key Results</h4>
                             <ul>
-                                {selectedReview.project.results.map((result, idx) => (
+                                {selectedReview.project?.results?.map((result, idx) => (
                                     <li key={idx}>{result}</li>
                                 ))}
                             </ul>

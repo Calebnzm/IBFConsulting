@@ -1,40 +1,72 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { client, queries, urlFor } from '../lib/sanity';
+import LoadingSpinner from './LoadingSpinner';
 import './Services.css';
 
-const services = [
+// Fallback data in case Sanity is not populated yet
+const fallbackServices = [
     {
-        id: 'strategy-consulting',
+        slug: 'strategy-consulting',
         title: 'Strategy Consulting',
         description: 'Develop winning strategies that drive growth and competitive advantage. We analyze markets, identify opportunities, and create actionable roadmaps for success.',
         features: ['Market Analysis', 'Growth Strategy', 'Competitive Positioning', 'Business Planning'],
-        image: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop'
+        image: null
     },
     {
-        id: 'business-analytics',
+        slug: 'business-analytics',
         title: 'Business Analytics',
         description: 'Transform raw data into actionable insights that inform better decisions. Our analytics solutions help you understand performance and predict future trends.',
         features: ['Data Visualization', 'Predictive Analytics', 'KPI Dashboards', 'Performance Tracking'],
-        image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop'
+        image: null
     },
     {
-        id: 'digital-transformation',
+        slug: 'digital-transformation',
         title: 'Digital Transformation',
         description: 'Navigate the digital landscape and leverage technology for innovation. We guide organizations through technological change with proven frameworks.',
         features: ['Technology Strategy', 'Digital Roadmap', 'Change Management', 'Process Automation'],
-        image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop'
+        image: null
     },
     {
-        id: 'operations-excellence',
+        slug: 'operations-excellence',
         title: 'Operations Excellence',
         description: 'Optimize your operations for maximum efficiency and quality. We identify bottlenecks, streamline processes, and implement best practices.',
         features: ['Process Optimization', 'Lean Management', 'Quality Assurance', 'Cost Reduction'],
-        image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop'
+        image: null
     }
+];
+
+// Default images for fallback
+const defaultImages = [
+    'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&h=400&fit=crop',
+    'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=400&fit=crop'
 ];
 
 function Services({ showHeader = true }) {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [services, setServices] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        async function fetchServices() {
+            try {
+                const data = await client.fetch(queries.allServices);
+                if (data && data.length > 0) {
+                    setServices(data);
+                } else {
+                    setServices(fallbackServices);
+                }
+            } catch (error) {
+                console.error('Error fetching services:', error);
+                setServices(fallbackServices);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchServices();
+    }, []);
 
     const nextService = () => {
         setCurrentIndex((prev) => (prev + 1) % services.length);
@@ -43,6 +75,17 @@ function Services({ showHeader = true }) {
     const prevService = () => {
         setCurrentIndex((prev) => (prev - 1 + services.length) % services.length);
     };
+
+    const getImageUrl = (service, index) => {
+        if (service.image) {
+            return urlFor(service.image).width(600).height(400).url();
+        }
+        return defaultImages[index % defaultImages.length];
+    };
+
+    if (loading) {
+        return <LoadingSpinner />;
+    }
 
     return (
         <section id="services" className="services section">
@@ -69,27 +112,27 @@ function Services({ showHeader = true }) {
                     <div className="services__track">
                         {services.map((service, index) => (
                             <article
-                                key={service.id}
+                                key={service._id || service.slug}
                                 className={`service-card ${index === currentIndex ? 'service-card--active' : ''}`}
                                 style={{
                                     transform: `translateX(${(index - currentIndex) * 100}%)`,
                                 }}
                             >
                                 <div className="service-card__image">
-                                    <img src={service.image} alt={service.title} />
+                                    <img src={getImageUrl(service, index)} alt={service.title} />
                                 </div>
                                 <div className="service-card__content">
                                     <span className="service-card__number">0{index + 1}</span>
                                     <h3 className="service-card__title">{service.title}</h3>
                                     <p className="service-card__description">{service.description}</p>
                                     <ul className="service-card__features">
-                                        {service.features.map((feature, idx) => (
+                                        {service.features?.map((feature, idx) => (
                                             <li key={idx} className="service-card__feature">
                                                 {feature}
                                             </li>
                                         ))}
                                     </ul>
-                                    <Link to={`/services/${service.id}`} className="service-card__link btn-corner">
+                                    <Link to={`/services/${service.slug}`} className="service-card__link btn-corner">
                                         <span>VIEW DETAILS</span>
                                         <span className="corner-bl"></span>
                                         <span className="corner-br"></span>

@@ -1,0 +1,55 @@
+/* ===== Loading Spinner - Split Blue Design ===== */
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    z-index: 9999;
+}
+
+.loading-spinner__container {
+    display: flex;
+    gap: 4px;
+    animation: pulse 1.2s ease-in-out infinite;
+}
+
+.loading-spinner__half {
+    width: 24px;
+    height: 48px;
+    background: var(--primary-deep, #1a365d);
+    animation: spinner-bounce 1.2s ease-in-out infinite;
+}
+
+.loading-spinner__half--left {
+    border-radius: 24px 0 0 24px;
+    animation-delay: 0s;
+}
+
+.loading-spinner__half--right {
+    border-radius: 0 24px 24px 0;
+    background: var(--light-blue, #3182ce);
+    animation-delay: 0.15s;
+}
+
+@keyframes spinner-bounce {
+    0%, 100% {
+        transform: scaleY(1);
+    }
+    50% {
+        transform: scaleY(0.6);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+}

@@ -1,5 +1,5 @@
 /* ===== Shared Page Header Styles ===== */
-/* Reusable sticky header that syncs with navbar */
+/* Sticky header that stays below navbar */
 
 .page-wrapper {
     min-height: 100vh;
@@ -7,64 +7,53 @@
     padding-top: var(--navbar-height);
 }
 
-/* Sticky Page Header - syncs with navbar */
+/* Page Header - Sticky below navbar */
 .page-header {
     position: sticky;
-    top: 88px;
-    z-index: 50;
-    padding: var(--space-xl) 0;
-    background: #ffffff;
-    border-bottom: none;
-    transition: top 0.3s ease, padding 0.3s ease;
-    will-change: top, padding;
-}
-
-/* Extend background upward to cover any gap during transitions */
-.page-header::before {
-    content: '';
-    position: absolute;
-    top: -100px;
-    left: 0;
-    right: 0;
-    height: 100px;
-    background: inherit;
-    z-index: -1;
-}
-
-/* Scrolled state - shrinks with navbar */
-.page-header--scrolled {
     top: 56px;
-    padding: var(--space-md) 0;
+    z-index: 50;
+    padding: var(--space-lg) 0;
+    background: #ffffff;
+}
+
+.page-header .container {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+}
+
+/* Back Button - Rectangle, blue background */
+.page-header__back {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 18px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #ffffff;
+    background: var(--primary-deep);
+    border: none;
+    border-radius: 0;
+    text-decoration: none;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.page-header__back:hover {
+    background: var(--light-blue);
+}
+
+.page-header__back-arrow {
+    font-size: 14px;
 }
 
 .page-header__title {
     font-size: var(--text-2xl);
-    font-weight: 500;
-    line-height: 1.2;
+    font-weight: 600;
+    line-height: 1.3;
     color: var(--primary-deep);
     margin: 0;
-    transition: font-size var(--transition-base);
-}
-
-.page-header__back {
-    display: inline-block;
-    font-size: var(--text-sm);
-    font-weight: 500;
-    color: var(--neutral-600);
-    margin-bottom: var(--space-xs);
-    text-decoration: none;
-    transition: color var(--transition-base);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.page-header__back:hover {
-    color: var(--primary-default);
-}
-
-/* Hide back button when scrolled to restore shrink effect */
-.page-header--scrolled .page-header__back {
-    display: none;
 }
 
 @media (min-width: 768px) {
@@ -73,19 +62,44 @@
     }
 }
 
-/* Scrolled title - smaller text */
-.page-header--scrolled .page-header__title {
-    font-size: var(--text-lg);
-}
-
-@media (min-width: 768px) {
-    .page-header--scrolled .page-header__title {
-        font-size: var(--text-xl);
-    }
-}
-
 /* Page content area */
 .page-content {
-    padding-top: 0;
-    padding-bottom: var(--space-4xl);
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-2xl);
+}
+
+/* For pages without back button */
+.page-header--no-back .container {
+    display: block;
+}
+
+/* Page section */
+.page-section {
+    padding-top: var(--space-sm);
+    padding-bottom: var(--space-lg);
+}
+
+/* Mobile adjustments */
+@media (max-width: 640px) {
+    .page-header {
+        top: 52px;
+        padding: var(--space-md) 0;
+    }
+
+    .page-header .container {
+        flex-wrap: wrap;
+    }
+
+    .page-header__back {
+        padding: 8px 14px;
+        font-size: 12px;
+    }
+
+    .page-header__title {
+        font-size: var(--text-xl);
+    }
+
+    .page-content {
+        padding-top: var(--space-xs);
+    }
 }

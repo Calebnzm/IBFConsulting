@@ -29,7 +29,7 @@ function Footer() {
                 <div className="footer__top">
                     <div className="footer__brand">
                         <span className="footer__logo-icon">◈</span>
-                        <span className="footer__logo-text">PTConsulting</span>
+                        <span className="footer__logo-text">IBFConsulting</span>
                     </div>
 
                     <div className="footer__links">
@@ -69,7 +69,7 @@ function Footer() {
                 {/* Bottom */}
                 <div className="footer__bottom">
                     <p className="footer__copyright">
-                        © {currentYear} PT Consulting. All rights reserved.
+                        © {currentYear} IBF Consulting. All rights reserved.
                     </p>
                     <div className="footer__social">
                         <a href="#" className="footer__social-link">LinkedIn</a>
@@ -80,7 +80,7 @@ function Footer() {
 
                 {/* Watermark */}
                 <div className="footer__watermark">
-                    PTConsulting
+                    IBFConsulting
                 </div>
             </div>
         </footer>

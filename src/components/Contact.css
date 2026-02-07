@@ -2,18 +2,23 @@
 .contact {
     background: var(--bg-primary);
     border-top: none;
+    padding: 0;
+}
+
+.contact.section {
+    padding: 0;
 }
 
 .contact__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-3xl);
+    gap: var(--space-xl);
 }
 
 @media (min-width: 1024px) {
     .contact__grid {
         grid-template-columns: 1fr 1.2fr;
-        gap: var(--space-4xl);
+        gap: var(--space-2xl);
     }
 }
 

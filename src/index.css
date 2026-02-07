@@ -1,4 +1,4 @@
-/* ===== PT Consulting - Botronics-Inspired Design ===== */
+/* ===== IBF Consulting - Botronics-Inspired Design ===== */
 
 /* Import Google Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
@@ -101,7 +101,7 @@
   --corner-thickness: 1px;
 
   /* Layout */
-  --navbar-height: 72px;
+  --navbar-height: 56px;
 }
 
 /* ===== Global Reset ===== */
@@ -178,7 +178,7 @@ textarea {
 .section {
   min-height: auto;
   height: auto;
-  padding: var(--space-4xl) 0;
+  padding: var(--space-2xl) 0;
   display: block;
   overflow: visible;
   box-sizing: border-box;
@@ -188,7 +188,7 @@ textarea {
 .page-section {
   min-height: auto;
   height: auto;
-  padding: var(--space-4xl) 0;
+  padding: var(--space-2xl) 0;
   display: block;
   overflow: visible;
 }
@@ -217,7 +217,7 @@ textarea {
   }
 
   .section {
-    padding: var(--space-2xl) 0;
+    padding: var(--space-lg) 0;
   }
 
   .headline-xl {
@@ -392,22 +392,14 @@ textarea {
   border-radius: var(--radius-sm);
 }
 
-/* ===== Scrollbar ===== */
+/* ===== Scrollbar - Hidden ===== */
 ::-webkit-scrollbar {
-  width: 6px;
+  display: none;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--neutral-100);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--primary-deep);
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--primary-purple);
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
 /* ===== Selection ===== */

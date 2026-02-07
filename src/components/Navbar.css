@@ -5,14 +5,11 @@
     left: 0;
     right: 0;
     z-index: 100;
-    padding: var(--space-lg) 0;
+    padding: var(--space-md) 0;
     background: var(--bg-dark);
-    transition: padding 0.3s ease;
-    will-change: padding;
 }
 
 .navbar--scrolled {
-    padding: var(--space-md) 0;
     background: var(--bg-dark);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
 }

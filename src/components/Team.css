@@ -1,20 +1,25 @@
-/* ===== Team Section - Seamless Carousel Layout ===== */
+/* ===== Team Section - Grid Layout ===== */
 .team {
     background: var(--bg-primary);
+    padding: 0;
+}
+
+.team.section {
+    padding: 0;
 }
 
 /* Top Row: Header + CEO */
 .team__top {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
+    gap: var(--space-md);
     margin-bottom: var(--space-lg);
 }
 
 @media (min-width: 1024px) {
     .team__top {
         grid-template-columns: 1fr 1.5fr;
-        gap: var(--space-3xl);
+        gap: var(--space-xl);
         align-items: start;
     }
 }
@@ -65,128 +70,61 @@
     background: rgba(255, 255, 255, 0.5);
 }
 
-.team-card--featured .team-card__image img {
+/* Full image display - no cropping */
+.team-card__image--full {
+    overflow: hidden;
+}
+
+.team-card__image--full img {
     width: 100%;
-    height: 140px;
-    object-fit: cover;
-    object-position: top;
-    /* Native colors - no filter */
+    height: auto;
+    object-fit: contain;
+}
+
+.team-card--featured .team-card__image--full img {
+    max-height: 300px;
 }
 
 @media (min-width: 640px) {
-    .team-card--featured .team-card__image img {
-        height: 100%;
-        min-height: 200px;
+    .team-card--featured .team-card__image--full img {
+        max-height: 400px;
     }
 }
 
-/* No hover filter change needed */
-
-/* Carousel Section */
-.team__carousel {
-    padding: var(--space-md) 0;
+/* All Members Section */
+.team__all-members {
+    padding-top: var(--space-xl);
+    border-top: 1px solid var(--neutral-200);
 }
 
-.team__carousel-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: var(--space-md);
-    flex-wrap: wrap;
-    gap: var(--space-sm);
-}
-
-.team__carousel-title {
-    font-size: var(--text-lg);
+.team__section-title {
+    font-size: var(--text-xl);
     font-weight: 500;
     color: var(--text-primary);
+    margin-bottom: var(--space-lg);
 }
 
-.team__carousel-nav {
-    display: flex;
-    align-items: center;
-    gap: var(--space-md);
-}
-
-.team__carousel-indicator {
-    font-size: var(--text-sm);
-    color: var(--text-muted);
-    min-width: 50px;
-    text-align: center;
-    font-weight: 500;
-}
-
-/* Navigation Buttons - Sharp corners, deep blue */
-.team__nav {
-    width: 48px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--primary-deep);
-    border: none;
-    border-radius: 0;
-    font-size: var(--text-xl);
-    color: #ffffff;
-    cursor: pointer;
-    transition: all var(--transition-base);
-}
-
-.team__nav:hover {
-    background: var(--light-blue);
-    color: #ffffff;
-}
-
-.team__nav-arrow {
-    font-size: var(--text-base);
-}
-
-.team__nav-text {
-    display: none;
-}
-
-/* Team Members Animated Carousel */
-.team__members-track {
-    position: relative;
-    overflow: hidden;
-    min-height: 320px;
-}
-
-.team__members-page {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+/* Members Grid - All at once */
+.team__members-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-lg);
-    transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    opacity: 0;
-    pointer-events: none;
-    visibility: hidden;
-}
-
-.team__members-page--active {
-    opacity: 1;
-    pointer-events: auto;
-    visibility: visible;
-    position: relative;
+    gap: var(--space-xl);
 }
 
 @media (min-width: 640px) {
-    .team__members-page {
+    .team__members-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 
 @media (min-width: 1024px) {
-    .team__members-page {
+    .team__members-grid {
         grid-template-columns: repeat(3, 1fr);
     }
 }
 
-/* Compact Team Card with Bio */
-.team-card--compact {
+/* Grid Team Card */
+.team-card--grid {
     display: flex;
     flex-direction: column;
     padding: var(--space-md);
@@ -194,28 +132,26 @@
     transition: all var(--transition-base);
 }
 
-.team-card--compact:hover {
+.team-card--grid:hover {
     background: rgba(255, 255, 255, 0.5);
 }
 
-.team-card--compact .team-card__image {
+.team-card--grid .team-card__image--full {
     margin-bottom: var(--space-md);
-    overflow: hidden;
 }
 
-.team-card--compact .team-card__image img {
+.team-card--grid .team-card__image--full img {
+    max-height: 280px;
     width: 100%;
-    height: 200px;
-    object-fit: cover;
-    object-position: top;
-    /* Native colors - no filter */
+    object-fit: contain;
 }
 
-.team-card--compact:hover .team-card__image img {
+.team-card--grid:hover .team-card__image--full img {
     transform: scale(1.02);
+    transition: transform var(--transition-base);
 }
 
-.team-card--compact .team-card__content {
+.team-card--grid .team-card__content {
     display: flex;
     flex-direction: column;
 }
@@ -244,11 +180,10 @@
     margin-bottom: var(--space-md);
 }
 
-.team-card__bio-short {
+.team-card__bio-text {
     font-size: var(--text-sm);
-    font-style: italic;
     color: var(--text-secondary);
-    line-height: 1.5;
+    line-height: 1.6;
     margin-bottom: var(--space-md);
 }
 
@@ -270,22 +205,12 @@
 
 /* Mobile Optimizations */
 @media (max-width: 640px) {
-    .team__carousel-header {
-        flex-direction: column;
-        align-items: flex-start;
+    .team__section-title {
+        font-size: var(--text-lg);
     }
 
-    .team__nav {
-        width: 40px;
-        height: 32px;
-    }
-
-    .team__members-track {
-        min-height: 360px;
-    }
-
-    .team-card--compact .team-card__image img {
-        height: 180px;
+    .team-card--grid .team-card__image--full img {
+        max-height: 220px;
     }
 }
 
@@ -294,25 +219,11 @@
         font-size: var(--text-xl);
     }
 
-    .team__nav {
-        width: 36px;
-        height: 28px;
-        font-size: var(--text-base);
-    }
-
-    .team__carousel-nav {
-        gap: var(--space-sm);
-    }
-
-    .team__members-track {
-        min-height: 340px;
-    }
-
     .team-card--featured {
         padding: var(--space-sm);
     }
 
-    .team-card--compact {
+    .team-card--grid {
         padding: var(--space-sm);
     }
 
@@ -320,7 +231,7 @@
         font-size: var(--text-base);
     }
 
-    .team-card__bio-short {
+    .team-card__bio-text {
         font-size: var(--text-xs);
     }
 }

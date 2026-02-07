@@ -41,8 +41,8 @@ function Contact({ showHeader = true }) {
                             <div className="contact__info">
                                 <div className="contact__info-item">
                                     <span className="contact__info-label">Email</span>
-                                    <a href="mailto:hello@ptconsulting.com" className="contact__info-value">
-                                        hello@ptconsulting.com
+                                    <a href="mailto:hello@ibfconsulting.com" className="contact__info-value">
+                                        hello@ibfconsulting.com
                                     </a>
                                 </div>
                                 <div className="contact__info-item">

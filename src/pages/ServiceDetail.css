@@ -52,13 +52,13 @@
 .service-detail__grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-3xl);
+    gap: var(--space-xl);
 }
 
 @media (min-width: 1024px) {
     .service-detail__grid {
         grid-template-columns: 1.5fr 1fr;
-        gap: var(--space-4xl);
+        gap: var(--space-2xl);
     }
 }
 
@@ -67,17 +67,17 @@
     font-size: var(--text-lg);
     color: var(--text-secondary);
     line-height: 1.8;
-    margin-bottom: var(--space-3xl);
+    margin-bottom: var(--space-xl);
 }
 
 .service-detail__details {
     display: flex;
     flex-direction: column;
-    gap: var(--space-2xl);
+    gap: var(--space-md);
 }
 
 .service-detail__detail {
-    padding: var(--space-xl);
+    padding: var(--space-md);
     background: var(--bg-secondary);
     border-left: 2px solid var(--black);
 }

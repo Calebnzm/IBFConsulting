@@ -1,23 +1,11 @@
-import { useState, useEffect } from 'react';
 import Services from '../components/Services';
 import '../components/PageHeader.css';
 import './ServicesPage.css';
 
 function ServicesPage() {
-    const [isScrolled, setIsScrolled] = useState(false);
-
-    useEffect(() => {
-        const handleScroll = () => {
-            setIsScrolled(window.scrollY > 50);
-        };
-
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, []);
-
     return (
         <div className="page-wrapper">
-            <div className={`page-header ${isScrolled ? 'page-header--scrolled' : ''}`}>
+            <div className="page-header page-header--no-back">
                 <div className="container">
                     <h1 className="page-header__title">Strategic solutions for modern enterprises.</h1>
                 </div>
@@ -30,6 +18,3 @@ function ServicesPage() {
 }
 
 export default ServicesPage;
-
-
-
