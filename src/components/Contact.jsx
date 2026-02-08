@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 function Contact({ showHeader = true }) {
@@ -8,6 +9,8 @@ function Contact({ showHeader = true }) {
         company: '',
         message: '',
     });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
 
     const handleChange = (e) => {
         setFormData({
@@ -16,10 +19,60 @@ function Contact({ showHeader = true }) {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData);
-        alert('Thank you for your message! We will get back to you soon.');
+        setIsSubmitting(true);
+        setSubmitStatus(null);
+
+        try {
+            // Get current timestamp
+            const now = new Date();
+            const time = now.toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+                timeZoneName: 'short'
+            });
+
+            // Prepare template parameters
+            const templateParams = {
+                name: formData.name,
+                email: formData.email,
+                company: formData.company || 'Not provided',
+                message: formData.message,
+                time: time
+            };
+
+            // Send email using EmailJS
+            await emailjs.send(
+                import.meta.env.VITE_EMAILJS_SERVICE_ID,
+                'template_begv5ca',
+                templateParams,
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+            );
+
+            // Success
+            setSubmitStatus('success');
+            setFormData({
+                name: '',
+                email: '',
+                company: '',
+                message: '',
+            });
+
+            // Clear success message after 5 seconds
+            setTimeout(() => setSubmitStatus(null), 5000);
+        } catch (error) {
+            console.error('EmailJS Error:', error);
+            setSubmitStatus('error');
+
+            // Clear error message after 5 seconds
+            setTimeout(() => setSubmitStatus(null), 5000);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
 
     return (
@@ -113,8 +166,42 @@ function Contact({ showHeader = true }) {
                                     required
                                 ></textarea>
                             </div>
-                            <button type="submit" className="contact__submit btn-solid">
-                                SEND MESSAGE
+                            {/* Status Messages */}
+                            {submitStatus === 'success' && (
+                                <div style={{
+                                    padding: '12px 20px',
+                                    marginBottom: '20px',
+                                    backgroundColor: '#d4edda',
+                                    color: '#155724',
+                                    borderRadius: '4px',
+                                    border: '1px solid #c3e6cb'
+                                }}>
+                                    ✓ Thank you for your message! We will get back to you soon.
+                                </div>
+                            )}
+                            {submitStatus === 'error' && (
+                                <div style={{
+                                    padding: '12px 20px',
+                                    marginBottom: '20px',
+                                    backgroundColor: '#f8d7da',
+                                    color: '#721c24',
+                                    borderRadius: '4px',
+                                    border: '1px solid #f5c6cb'
+                                }}>
+                                    ✕ Something went wrong. Please try again or contact us directly.
+                                </div>
+                            )}
+
+                            <button
+                                type="submit"
+                                className="contact__submit btn-solid"
+                                disabled={isSubmitting}
+                                style={{
+                                    opacity: isSubmitting ? 0.7 : 1,
+                                    cursor: isSubmitting ? 'not-allowed' : 'pointer'
+                                }}
+                            >
+                                {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
                             </button>
                         </form>
                     </div>
