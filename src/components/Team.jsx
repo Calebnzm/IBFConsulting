@@ -4,75 +4,8 @@ import LoadingSpinner from './LoadingSpinner';
 import './Team.css';
 
 // Fallback data
-const fallbackTeamMembers = [
-    {
-        _id: '1',
-        name: 'Cuspers Obanda',
-        role: 'FOUNDER & CEO',
-        bio: '"I believe that every business has untapped potential waiting to be discovered. Our role is to illuminate the path to that potential and guide organizations toward strategic excellence."',
-        image: null,
-        isFeatured: true,
-        social: {
-            linkedin: 'https://linkedin.com/in/cuspers-obanda',
-            twitter: 'https://twitter.com/cuspersobanda'
-        }
-    },
-    {
-        _id: '2',
-        name: 'Wangari Kamau',
-        role: 'SENIOR STRATEGY CONSULTANT',
-        bio: '"Strategy is about making choices that create lasting competitive advantage."',
-        image: null,
-        social: {
-            linkedin: 'https://linkedin.com/in/wangari-kamau',
-            twitter: 'https://twitter.com/wangarikamau'
-        }
-    },
-    {
-        _id: '3',
-        name: 'David Odhiambo',
-        role: 'HEAD OF ANALYTICS',
-        bio: '"Data tells a story. Our job is to translate it into actionable insights."',
-        image: null,
-        social: {
-            linkedin: 'https://linkedin.com/in/david-odhiambo',
-            twitter: 'https://twitter.com/davidodhiambo'
-        }
-    },
-    {
-        _id: '4',
-        name: 'Fatuma Hassan',
-        role: 'ORGANIZATIONAL DEVELOPMENT LEAD',
-        bio: '"Leadership development is not just training—it\'s transformation."',
-        image: null,
-        social: {
-            linkedin: 'https://linkedin.com/in/fatuma-hassan',
-            twitter: 'https://twitter.com/fatumahassan'
-        }
-    },
-    {
-        _id: '5',
-        name: 'James Mwangi',
-        role: 'FINANCIAL STRATEGY DIRECTOR',
-        bio: '"Creating sustainable value through smart resource allocation."',
-        image: null,
-        social: {
-            linkedin: 'https://linkedin.com/in/james-mwangi',
-            twitter: 'https://twitter.com/jamesmwangi'
-        }
-    },
-    {
-        _id: '6',
-        name: 'Amina Osei',
-        role: 'DIGITAL TRANSFORMATION LEAD',
-        bio: '"Successful digital transformation puts humans at the center."',
-        image: null,
-        social: {
-            linkedin: 'https://linkedin.com/in/amina-osei',
-            twitter: 'https://twitter.com/aminaosei'
-        }
-    }
-];
+// Fallback data removed
+
 
 const defaultImages = [
     'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=500&fit=crop&crop=face',
@@ -96,11 +29,11 @@ function Team({ showHeader = true }) {
                 if (data && data.length > 0) {
                     setTeamMembers(data);
                 } else {
-                    setTeamMembers(fallbackTeamMembers);
+                    setTeamMembers([]);
                 }
             } catch (error) {
                 console.error('Error fetching team members:', error);
-                setTeamMembers(fallbackTeamMembers);
+                setTeamMembers([]);
             } finally {
                 setLoading(false);
             }
@@ -122,6 +55,10 @@ function Team({ showHeader = true }) {
 
     if (loading) {
         return <LoadingSpinner />;
+    }
+
+    if (!loading && (!teamMembers || teamMembers.length === 0)) {
+        return null;
     }
 
     return (

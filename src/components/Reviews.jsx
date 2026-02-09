@@ -4,83 +4,8 @@ import LoadingSpinner from './LoadingSpinner';
 import './Reviews.css';
 
 // Fallback data
-const fallbackReviews = [
-    {
-        _id: '1',
-        name: 'Wanjiku Kimani',
-        role: 'CEO',
-        company: 'TechVentures Kenya',
-        logo: 'TechVentures',
-        image: null,
-        text: 'IBF Consulting transformed our business strategy completely. Their insights helped us achieve 150% revenue growth in just 18 months. Truly exceptional partners.',
-        project: {
-            title: 'Strategic Growth Initiative',
-            description: 'Complete business strategy overhaul including market analysis, competitive positioning, and operational optimization.',
-            results: ['150% revenue growth', '40% operational efficiency improvement', 'Successful regional expansion']
-        }
-    },
-    {
-        _id: '2',
-        name: 'Ochieng Otieno',
-        role: 'CFO',
-        company: 'East Africa Logistics',
-        logo: 'EAL',
-        image: null,
-        text: 'The analytics team provided data-driven recommendations that saved us millions. Their attention to detail and strategic thinking is unmatched in the industry.',
-        project: {
-            title: 'Data Analytics Transformation',
-            description: 'Implementation of comprehensive analytics framework including dashboard development and predictive modeling.',
-            results: ['KES 50M+ in cost savings', 'Real-time reporting implementation', 'Predictive accuracy of 94%']
-        }
-    },
-    {
-        _id: '3',
-        name: 'Amina Mohamed',
-        role: 'Director of Operations',
-        company: 'Nairobi Innovation Hub',
-        logo: 'iHub',
-        image: null,
-        text: 'Working with IBF Consulting on our digital transformation was a game-changer. They understood our needs and delivered beyond expectations.',
-        project: {
-            title: 'Digital Transformation Program',
-            description: 'End-to-end digital transformation including technology stack modernization and process automation.',
-            results: ['50% reduction in manual processes', 'Cloud migration completed', 'New customer portal launched']
-        }
-    },
-    {
-        _id: '4',
-        name: 'Kamau Njoroge',
-        role: 'Managing Partner',
-        company: 'Savannah Capital',
-        logo: 'Savannah',
-        image: null,
-        text: 'Their risk management expertise protected our portfolio during volatile times. Highly recommend their strategic advisory services.',
-        project: {
-            title: 'Risk Management Framework',
-            description: 'Development of comprehensive risk management framework for investment portfolio protection.',
-            results: ['Risk exposure reduced by 35%', 'Portfolio protected during market volatility', 'New compliance processes established']
-        }
-    },
-    {
-        _id: '5',
-        name: 'Zainab Abdi',
-        role: 'VP of Strategy',
-        company: 'Coastal Solutions',
-        logo: 'Coastal',
-        image: null,
-        text: 'The leadership development program they designed for our executives was transformative. Our team is now more aligned and effective than ever.',
-        project: {
-            title: 'Leadership Excellence Program',
-            description: 'Custom leadership development program for executive team including coaching and workshops.',
-            results: ['Executive alignment improved', 'Leadership effectiveness score +45%', 'Succession planning established']
-        }
-    }
-];
+// Fallback data removed
 
-const fallbackPartnerCompanies = [
-    'Safaricom', 'Equity Bank', 'KCB Group', 'EABL', 'Kenya Airways',
-    'Britam', 'Centum', 'Co-operative Bank', 'Standard Media', 'Nation Media'
-];
 
 const defaultImages = [
     'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&h=100&fit=crop&crop=face',
@@ -109,18 +34,18 @@ function Reviews({ showHeader = true }) {
                 if (testimonialsData && testimonialsData.length > 0) {
                     setReviews(testimonialsData);
                 } else {
-                    setReviews(fallbackReviews);
+                    setReviews([]);
                 }
 
                 if (partnersData && partnersData.length > 0) {
                     setPartnerCompanies(partnersData.map(p => p.name));
                 } else {
-                    setPartnerCompanies(fallbackPartnerCompanies);
+                    setPartnerCompanies([]);
                 }
             } catch (error) {
                 console.error('Error fetching reviews:', error);
-                setReviews(fallbackReviews);
-                setPartnerCompanies(fallbackPartnerCompanies);
+                setReviews([]);
+                setPartnerCompanies([]);
             } finally {
                 setLoading(false);
             }
@@ -162,6 +87,10 @@ function Reviews({ showHeader = true }) {
 
     if (loading) {
         return <LoadingSpinner />;
+    }
+
+    if (!reviews || reviews.length === 0) {
+        return null;
     }
 
     return (

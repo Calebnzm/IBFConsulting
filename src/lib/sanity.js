@@ -29,7 +29,7 @@ export function formatDate(dateString) {
 // GROQ Queries
 export const queries = {
   // Services
-  allServices: `*[_type == "service"] | order(order asc) {
+  allServices: `*[_type == "service" && !(_id in path("drafts.**")) && (isVisible == true || !defined(isVisible))] | order(order asc) {
     _id,
     title,
     "slug": slug.current,
@@ -54,7 +54,7 @@ export const queries = {
   }`,
 
   // Blog Posts
-  allBlogPosts: `*[_type == "blogPost"] | order(publishedDate desc) {
+  allBlogPosts: `*[_type == "blogPost" && !(_id in path("drafts.**")) && (isVisible == true || !defined(isVisible))] | order(publishedDate desc) {
     _id,
     title,
     "slug": slug.current,
@@ -76,7 +76,7 @@ export const queries = {
   }`,
 
   // Resources
-  allResources: `*[_type == "resource"] {
+  allResources: `*[_type == "resource" && !(_id in path("drafts.**")) && (isVisible == true || !defined(isVisible))] {
     _id,
     title,
     "slug": slug.current,
@@ -98,7 +98,7 @@ export const queries = {
   }`,
 
   // Team Members
-  allTeamMembers: `*[_type == "teamMember"] | order(order asc) {
+  allTeamMembers: `*[_type == "teamMember" && !(_id in path("drafts.**")) && (isVisible == true || !defined(isVisible))] | order(order asc) {
     _id,
     name,
     role,
@@ -109,7 +109,7 @@ export const queries = {
   }`,
 
   // Testimonials
-  allTestimonials: `*[_type == "testimonial"] | order(order asc) {
+  allTestimonials: `*[_type == "testimonial" && !(_id in path("drafts.**")) && (isVisible == true || !defined(isVisible))] | order(order asc) {
     _id,
     name,
     role,
@@ -121,7 +121,7 @@ export const queries = {
   }`,
 
   // Partner Companies
-  allPartnerCompanies: `*[_type == "partnerCompany"] | order(order asc) {
+  allPartnerCompanies: `*[_type == "partnerCompany" && !(_id in path("drafts.**")) && (isVisible == true || !defined(isVisible))] | order(order asc) {
     _id,
     name
   }`,

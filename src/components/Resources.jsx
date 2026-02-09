@@ -5,28 +5,8 @@ import LoadingSpinner from './LoadingSpinner';
 import './Resources.css';
 
 // Fallback resources
-const fallbackResources = [
-    {
-        slug: 'digital-transformation-playbook',
-        type: 'Whitepaper',
-        title: 'Digital Transformation Playbook 2024',
-    },
-    {
-        slug: 'techventures-case-study',
-        type: 'Case Study',
-        title: 'How We Helped TechVentures Scale',
-    },
-    {
-        slug: 'future-of-work-report',
-        type: 'Ebook',
-        title: 'The Future of Work Report',
-    },
-    {
-        slug: 'business-analytics-webinar',
-        type: 'Webinar',
-        title: 'Mastering Business Analytics',
-    },
-];
+// Fallback resources removed
+
 
 function Resources() {
     const [resources, setResources] = useState([]);
@@ -39,17 +19,21 @@ function Resources() {
                 if (data && data.length > 0) {
                     setResources(data);
                 } else {
-                    setResources(fallbackResources);
+                    setResources([]);
                 }
             } catch (error) {
                 console.error('Error fetching resources:', error);
-                setResources(fallbackResources);
+                setResources([]);
             } finally {
                 setLoading(false);
             }
         }
         fetchResources();
     }, []);
+
+    if (!loading && (!resources || resources.length === 0)) {
+        return null;
+    }
 
     return (
         <section id="resources" className="resources section">
@@ -59,7 +43,7 @@ function Resources() {
                     <div className="resources__header">
                         <span className="section-label">Resources</span>
                         <h2 className="resources__title">
-                            Insights &<br />knowledge hub.
+                            Insights &<br />Knowledge Hub: Explore our expert insights.
                         </h2>
                         <p className="resources__description">
                             Access our library of expert insights, research papers, and practical guides.

@@ -5,29 +5,8 @@ import LoadingSpinner from './LoadingSpinner';
 import './Blog.css';
 
 // Fallback posts
-const fallbackPosts = [
-    {
-        slug: 'sustainable-growth-strategies',
-        category: 'Strategy',
-        publishedDate: '2024-01-15',
-        title: '5 Strategies for Sustainable Business Growth',
-        author: { name: 'Sarah Mitchell' },
-    },
-    {
-        slug: 'ai-powered-analytics',
-        category: 'Technology',
-        publishedDate: '2024-01-10',
-        title: 'AI-Powered Analytics: The Future of Business Intelligence',
-        author: { name: 'Michael Chen' },
-    },
-    {
-        slug: 'remote-team-building',
-        category: 'Leadership',
-        publishedDate: '2024-01-05',
-        title: 'Building High-Performance Teams in Remote Environments',
-        author: { name: 'Emily Rodriguez' },
-    },
-];
+// Fallback posts removed
+
 
 function Blog() {
     const [posts, setPosts] = useState([]);
@@ -40,11 +19,11 @@ function Blog() {
                 if (data && data.length > 0) {
                     setPosts(data);
                 } else {
-                    setPosts(fallbackPosts);
+                    setPosts([]);
                 }
             } catch (error) {
                 console.error('Error fetching blog posts:', error);
-                setPosts(fallbackPosts);
+                setPosts([]);
             } finally {
                 setLoading(false);
             }
@@ -60,6 +39,10 @@ function Blog() {
             year: 'numeric'
         });
     };
+
+    if (!loading && (!posts || posts.length === 0)) {
+        return null;
+    }
 
     return (
         <section id="blog" className="blog section">

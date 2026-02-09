@@ -137,7 +137,7 @@ function Hero() {
                     </p>
 
                     <Link to="/services" className="hero__cta btn-solid">
-                        OUR SERVICES
+                        EXPLORE OUR SERVICES
                     </Link>
                 </div>
             </div>

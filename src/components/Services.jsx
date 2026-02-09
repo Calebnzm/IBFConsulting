@@ -5,36 +5,8 @@ import LoadingSpinner from './LoadingSpinner';
 import './Services.css';
 
 // Fallback data in case Sanity is not populated yet
-const fallbackServices = [
-    {
-        slug: 'strategy-consulting',
-        title: 'Strategy Consulting',
-        description: 'Develop winning strategies that drive growth and competitive advantage. We analyze markets, identify opportunities, and create actionable roadmaps for success.',
-        features: ['Market Analysis', 'Growth Strategy', 'Competitive Positioning', 'Business Planning'],
-        image: null
-    },
-    {
-        slug: 'business-analytics',
-        title: 'Business Analytics',
-        description: 'Transform raw data into actionable insights that inform better decisions. Our analytics solutions help you understand performance and predict future trends.',
-        features: ['Data Visualization', 'Predictive Analytics', 'KPI Dashboards', 'Performance Tracking'],
-        image: null
-    },
-    {
-        slug: 'digital-transformation',
-        title: 'Digital Transformation',
-        description: 'Navigate the digital landscape and leverage technology for innovation. We guide organizations through technological change with proven frameworks.',
-        features: ['Technology Strategy', 'Digital Roadmap', 'Change Management', 'Process Automation'],
-        image: null
-    },
-    {
-        slug: 'operations-excellence',
-        title: 'Operations Excellence',
-        description: 'Optimize your operations for maximum efficiency and quality. We identify bottlenecks, streamline processes, and implement best practices.',
-        features: ['Process Optimization', 'Lean Management', 'Quality Assurance', 'Cost Reduction'],
-        image: null
-    }
-];
+// Fallback data removed
+
 
 // Default images for fallback
 const defaultImages = [
@@ -56,11 +28,11 @@ function Services({ showHeader = true }) {
                 if (data && data.length > 0) {
                     setServices(data);
                 } else {
-                    setServices(fallbackServices);
+                    setServices([]);
                 }
             } catch (error) {
                 console.error('Error fetching services:', error);
-                setServices(fallbackServices);
+                setServices([]);
             } finally {
                 setLoading(false);
             }
@@ -85,6 +57,10 @@ function Services({ showHeader = true }) {
 
     if (loading) {
         return <LoadingSpinner />;
+    }
+
+    if (!services || services.length === 0) {
+        return null; // Don't render section if no services
     }
 
     return (
