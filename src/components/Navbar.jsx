@@ -1,13 +1,10 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const navLinks = [
-  { name: 'HOME', href: '/' },
+  { name: 'ABOUT', href: '/#about' },
   { name: 'SERVICES', href: '/services' },
-  { name: 'TESTIMONIALS', href: '/testimonials' },
-  { name: 'RESOURCES', href: '/resources' },
-  { name: 'BLOG', href: '/blog' },
   { name: 'TEAM', href: '/team' },
   { name: 'CONTACT', href: '/contact' }
 ];
@@ -26,15 +23,34 @@ function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu when navigating
-  const handleNavClick = () => {
+  const navigate = useNavigate();
+
+  // Close mobile menu and handle hash navigation
+  const handleNavClick = (e, href) => {
     setIsMobileMenuOpen(false);
+    if (href.startsWith('/#')) {
+      e.preventDefault();
+      const sectionId = href.substring(2);
+      if (location.pathname === '/') {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        navigate('/');
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) el.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
   };
 
   // Check if link is active
   const isActive = (href) => {
     if (href === '/') {
       return location.pathname === '/';
+    }
+    if (href.startsWith('/#')) {
+      return location.pathname === '/' && location.hash === href.substring(1);
     }
     return location.pathname.startsWith(href);
   };
@@ -43,7 +59,7 @@ function Navbar() {
     <header className={`navbar ${isScrolled ? 'navbar--scrolled' : ''}`}>
       <div className="navbar__container container">
         {/* Logo */}
-        <Link to="/" className="navbar__logo" onClick={handleNavClick}>
+        <Link to="/" className="navbar__logo" onClick={(e) => handleNavClick(e, '/')}>
           <span className="navbar__logo-icon">◈</span>
           <span className="navbar__logo-text">IBFConsulting</span>
         </Link>
@@ -56,6 +72,7 @@ function Navbar() {
                 <Link
                   to={link.href}
                   className={`navbar__link ${isActive(link.href) ? 'navbar__link--active' : ''}`}
+                  onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.name}
                 </Link>
@@ -84,7 +101,7 @@ function Navbar() {
                 <Link
                   to={link.href}
                   className={`navbar__mobile-link ${isActive(link.href) ? 'navbar__mobile-link--active' : ''}`}
-                  onClick={handleNavClick}
+                  onClick={(e) => handleNavClick(e, link.href)}
                 >
                   {link.name}
                 </Link>

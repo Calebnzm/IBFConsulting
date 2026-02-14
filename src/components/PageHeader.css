@@ -14,6 +14,7 @@
     z-index: 50;
     padding: var(--space-lg) 0;
     background: #ffffff;
+    border-bottom: 2px solid var(--primary-deep);
 }
 
 .page-header .container {
@@ -64,7 +65,7 @@
 
 /* Page content area */
 .page-content {
-    padding-top: var(--space-sm);
+    padding-top: var(--space-xl);
     padding-bottom: var(--space-2xl);
 }
 
@@ -75,7 +76,7 @@
 
 /* Page section */
 .page-section {
-    padding-top: var(--space-sm);
+    padding-top: var(--space-xl);
     padding-bottom: var(--space-lg);
 }
 
@@ -100,6 +101,6 @@
     }
 
     .page-content {
-        padding-top: var(--space-xs);
+        padding-top: var(--space-md);
     }
 }

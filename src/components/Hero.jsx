@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
 import './Hero.css';
 
 function Hero() {
@@ -118,27 +117,32 @@ function Hero() {
 
             <div className="hero__container container">
                 <div className="hero__content">
-                    {/* Dominant Logo/Brand */}
-                    <div className="hero__brand">
-                        <span className="hero__brand-icon">◈</span>
-                        <h1 className="hero__brand-name">Insurance Business French Consulting</h1>
+                    {/* Banner layout: Logo + Tagline */}
+                    <div className="hero__banner">
+                        <div className="hero__logo-block">
+                            <span className="hero__brand-icon">&#9672;</span>
+                            <span className="hero__logo-label">IBF</span>
+                        </div>
+                        <div className="hero__tagline-block">
+                            <h1 className="hero__brand-name">
+                                <span>Insurance</span>
+                                <span className="hero__separator">|</span>
+                                <span>Business</span>
+                                <span className="hero__separator">|</span>
+                                <span>French</span>
+                                <span className="hero__dash">&mdash;</span>
+                                <span>Consulting</span>
+                            </h1>
+                        </div>
                     </div>
 
-                    {/* Tagline */}
-                    <p className="hero__tagline">
+                    {/* Subtitle */}
+                    <p className="hero__description">
                         We transform businesses into
                         <span className="text-stencil"> strategic </span>
-                        powerhouses.
+                        powerhouses. The business world is evolving faster than ever.
+                        The next big leap won't happen by chance &mdash; it will happen through strategic excellence.
                     </p>
-
-                    <p className="hero__description">
-                        The business world is evolving faster than ever. The next big leap won't
-                        happen by chance — it will happen through strategic excellence.
-                    </p>
-
-                    <Link to="/services" className="hero__cta btn-solid">
-                        EXPLORE OUR SERVICES
-                    </Link>
                 </div>
             </div>
 

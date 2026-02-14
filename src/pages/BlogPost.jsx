@@ -6,45 +6,6 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import '../components/PageHeader.css';
 import './BlogPost.css';
 
-// Fallback data
-const fallbackBlogPosts = {
-    'sustainable-growth-strategies': {
-        slug: 'sustainable-growth-strategies',
-        category: 'Strategy',
-        publishedDate: '2024-01-15',
-        title: '5 Strategies for Sustainable Business Growth',
-        author: {
-            name: 'Sarah Mitchell',
-            role: 'Senior Strategy Consultant',
-            image: null
-        },
-        image: null,
-        htmlContent: `
-      <p>Sustainable business growth requires more than just increasing revenue. It demands a holistic approach that considers long-term viability, operational efficiency, and organizational culture.</p>
-      
-      <h2>1. Focus on Customer Retention</h2>
-      <p>While acquiring new customers is important, retaining existing ones is often more cost-effective and leads to more sustainable growth.</p>
-      
-      <h2>2. Build Scalable Systems</h2>
-      <p>Growth becomes unsustainable when your systems can't keep up with demand. Invest in scalable infrastructure.</p>
-      
-      <h2>3. Develop Your People</h2>
-      <p>Your team is your greatest asset. Create development programs that help employees grow their skills.</p>
-      
-      <h2>4. Maintain Financial Discipline</h2>
-      <p>Growth at any cost is not sustainable. Ensure that your growth initiatives are properly funded.</p>
-      
-      <h2>5. Stay Customer-Centric</h2>
-      <p>As you grow, it's easy to lose touch with customer needs. Maintain regular feedback loops.</p>
-    `
-    }
-};
-
-const defaultImages = {
-    post: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1200&h=600&fit=crop',
-    author: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?w=100&h=100&fit=crop&crop=face'
-};
-
 // Portable Text components for rendering rich content
 const portableTextComponents = {
     types: {
@@ -78,12 +39,11 @@ function BlogPost() {
                 if (data) {
                     setPost(data);
                 } else {
-                    // Use fallback
-                    setPost(fallbackBlogPosts[id] || createDefaultPost(id));
+                    setPost(null);
                 }
             } catch (error) {
                 console.error('Error fetching blog post:', error);
-                setPost(fallbackBlogPosts[id] || createDefaultPost(id));
+                setPost(null);
             } finally {
                 setLoading(false);
             }
@@ -91,47 +51,70 @@ function BlogPost() {
         fetchPost();
     }, [id]);
 
-    const createDefaultPost = (slug) => ({
-        slug,
-        category: 'General',
-        publishedDate: new Date().toISOString(),
-        title: slug.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' '),
-        author: {
-            name: 'IBF Consulting Team',
-            role: 'Content Team',
-            image: null
-        },
-        image: null,
-        htmlContent: '<p>This article is coming soon. Check back later for the full content.</p>'
-    });
-
     const getPostImageUrl = () => {
-        if (post?.image) {
+        if (post?.image?.asset) {
             return urlFor(post.image).width(1200).height(600).url();
         }
-        return defaultImages.post;
+        return null;
     };
 
     if (loading) {
         return <LoadingSpinner />;
     }
 
+    if (!post) {
+        return (
+            <div className="page-wrapper">
+                <div className="container">
+                    <div className="service-detail__not-found">
+                        <h1>Article not found</h1>
+                        <Link to="/blog" className="btn-solid">Back to Blog</Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
+    const postImage = getPostImageUrl();
+    const hasContent = post.content || post.htmlContent;
+
     return (
         <article className="page-wrapper">
             <div className="page-header">
                 <div className="container">
                     <Link to="/blog" className="page-header__back">
-                        <span className="page-header__back-arrow">←</span>
+                        <span className="page-header__back-arrow">&larr;</span>
                         Back
                     </Link>
                     <h1 className="page-header__title">{post.title}</h1>
                 </div>
             </div>
 
-            {/* Featured Image */}
-            <div className="blog-post__image">
-                <img src={getPostImageUrl()} alt={post.title} />
-            </div>
+            {/* Featured Image - only if available */}
+            {postImage && (
+                <div className="blog-post__image">
+                    <img src={postImage} alt={post.title} />
+                </div>
+            )}
+
+            {/* Meta info */}
+            {(post.category || post.publishedDate || post.author?.name) && (
+                <div className="blog-post__meta-bar">
+                    <div className="container">
+                        <div className="blog-post__meta-inner">
+                            {post.category && (
+                                <span className="blog-post__category-badge">{post.category}</span>
+                            )}
+                            {post.publishedDate && (
+                                <span className="blog-post__date">{formatDate(post.publishedDate)}</span>
+                            )}
+                            {post.author?.name && (
+                                <span className="blog-post__author-name">By {post.author.name}</span>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Content */}
             <section className="blog-post__content page-section">
@@ -142,7 +125,9 @@ function BlogPost() {
                         ) : post.htmlContent ? (
                             <div dangerouslySetInnerHTML={{ __html: post.htmlContent }} />
                         ) : (
-                            <p>Content coming soon.</p>
+                            <div className="no-content">
+                                <p>This article is being prepared. Check back soon for the full content.</p>
+                            </div>
                         )}
                     </div>
 

@@ -100,14 +100,18 @@ function Services({ showHeader = true }) {
                                 <div className="service-card__content">
                                     <span className="service-card__number">0{index + 1}</span>
                                     <h3 className="service-card__title">{service.title}</h3>
-                                    <p className="service-card__description">{service.description}</p>
-                                    <ul className="service-card__features">
-                                        {service.features?.map((feature, idx) => (
-                                            <li key={idx} className="service-card__feature">
-                                                {feature}
-                                            </li>
-                                        ))}
-                                    </ul>
+                                    {service.description && (
+                                        <p className="service-card__description">{service.description}</p>
+                                    )}
+                                    {service.features && service.features.length > 0 && (
+                                        <ul className="service-card__features">
+                                            {service.features.map((feature, idx) => (
+                                                <li key={idx} className="service-card__feature">
+                                                    {feature}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    )}
                                     <Link to={`/services/${service.slug}`} className="service-card__link btn-corner">
                                         <span>VIEW DETAILS</span>
                                         <span className="corner-bl"></span>

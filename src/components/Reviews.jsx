@@ -134,24 +134,32 @@ function Reviews({ showHeader = true }) {
                                     transform: `translateX(${(index - activeIndex) * 100}%)`,
                                 }}
                             >
-                                <blockquote className="review-card__text">
-                                    "{review.text}"
-                                </blockquote>
+                                {review.text && (
+                                    <blockquote className="review-card__text">
+                                        &ldquo;{review.text}&rdquo;
+                                    </blockquote>
+                                )}
                                 <div className="review-card__author">
-                                    <img src={getImageUrl(review, index)} alt={review.name} className="review-card__avatar" />
+                                    <img src={getImageUrl(review, index)} alt={review.name || 'Reviewer'} className="review-card__avatar" />
                                     <div className="review-card__info">
-                                        <h4 className="review-card__name">{review.name}</h4>
-                                        <p className="review-card__role">{review.role}, {review.company}</p>
+                                        {review.name && <h4 className="review-card__name">{review.name}</h4>}
+                                        {(review.role || review.company) && (
+                                            <p className="review-card__role">
+                                                {[review.role, review.company].filter(Boolean).join(', ')}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
-                                <button
-                                    className="review-card__details btn-corner"
-                                    onClick={() => openModal(review)}
-                                >
-                                    <span>READ CASE STUDY</span>
-                                    <span className="corner-bl"></span>
-                                    <span className="corner-br"></span>
-                                </button>
+                                {review.project && (
+                                    <button
+                                        className="review-card__details btn-corner"
+                                        onClick={() => openModal(review)}
+                                    >
+                                        <span>READ CASE STUDY</span>
+                                        <span className="corner-bl"></span>
+                                        <span className="corner-br"></span>
+                                    </button>
+                                )}
                             </div>
                         ))}
                     </div>
@@ -177,25 +185,38 @@ function Reviews({ showHeader = true }) {
             {showModal && selectedReview && (
                 <div className="reviews__modal" onClick={closeModal}>
                     <div className="reviews__modal-content" onClick={(e) => e.stopPropagation()}>
-                        <button className="reviews__modal-close" onClick={closeModal}>×</button>
+                        <button className="reviews__modal-close" onClick={closeModal}>&times;</button>
                         <div className="reviews__modal-header">
                             <span className="section-label">Case Study</span>
-                            <h3>{selectedReview.project?.title}</h3>
-                            <p className="reviews__modal-company">{selectedReview.company}</p>
+                            {selectedReview.project?.title && <h3>{selectedReview.project.title}</h3>}
+                            {selectedReview.company && <p className="reviews__modal-company">{selectedReview.company}</p>}
                         </div>
                         <div className="reviews__modal-body">
-                            <p>{selectedReview.project?.description}</p>
-                            <h4>Key Results</h4>
-                            <ul>
-                                {selectedReview.project?.results?.map((result, idx) => (
-                                    <li key={idx}>{result}</li>
-                                ))}
-                            </ul>
+                            {selectedReview.project?.description && (
+                                <p>{selectedReview.project.description}</p>
+                            )}
+                            {selectedReview.project?.results && selectedReview.project.results.length > 0 && (
+                                <>
+                                    <h4>Key Results</h4>
+                                    <ul>
+                                        {selectedReview.project.results.map((result, idx) => (
+                                            <li key={idx}>{result}</li>
+                                        ))}
+                                    </ul>
+                                </>
+                            )}
+                            {!selectedReview.project?.description && (!selectedReview.project?.results || selectedReview.project.results.length === 0) && (
+                                <p>Case study details are being prepared.</p>
+                            )}
                         </div>
-                        <div className="reviews__modal-footer">
-                            <blockquote>"{selectedReview.text}"</blockquote>
-                            <p className="reviews__modal-author">— {selectedReview.name}, {selectedReview.role}</p>
-                        </div>
+                        {selectedReview.text && (
+                            <div className="reviews__modal-footer">
+                                <blockquote>&ldquo;{selectedReview.text}&rdquo;</blockquote>
+                                <p className="reviews__modal-author">
+                                    &mdash; {[selectedReview.name, selectedReview.role].filter(Boolean).join(', ')}
+                                </p>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}

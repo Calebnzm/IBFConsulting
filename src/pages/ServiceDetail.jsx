@@ -84,7 +84,6 @@ function ServiceDetail() {
                 if (data) {
                     setService(data);
                 } else {
-                    // Use fallback data
                     setService(fallbackServicesData[id] || null);
                 }
             } catch (error) {
@@ -121,12 +120,16 @@ function ServiceDetail() {
         );
     }
 
+    const hasDetails = service.details && service.details.length > 0;
+    const hasProcess = service.process && service.process.length > 0;
+    const hasImage = service.image || defaultImages[id];
+
     return (
         <div className="page-wrapper">
             <div className="page-header">
                 <div className="container">
                     <Link to="/services" className="page-header__back">
-                        <span className="page-header__back-arrow">←</span>
+                        <span className="page-header__back-arrow">&larr;</span>
                         Back
                     </Link>
                     <h1 className="page-header__title">{service.title}</h1>
@@ -136,41 +139,69 @@ function ServiceDetail() {
             {/* Content */}
             <section className="service-detail__content page-section">
                 <div className="container">
-                    <div className="service-detail__grid">
+                    <div className={`service-detail__grid ${!hasImage && !hasProcess ? 'service-detail__grid--full' : ''}`}>
                         <div className="service-detail__info">
-                            <p className="service-detail__description">{service.description}</p>
+                            {service.subtitle && (
+                                <p className="service-detail__subtitle">{service.subtitle}</p>
+                            )}
 
-                            <div className="service-detail__details">
-                                {service.details?.map((detail, index) => (
-                                    <div key={index} className="service-detail__detail">
-                                        <span className="service-detail__detail-number">0{index + 1}</span>
-                                        <h3 className="service-detail__detail-title">{detail.title}</h3>
-                                        <p className="service-detail__detail-desc">{detail.description}</p>
-                                    </div>
-                                ))}
-                            </div>
+                            {service.description && (
+                                <p className="service-detail__description">{service.description}</p>
+                            )}
+
+                            {hasDetails && (
+                                <div className="service-detail__details">
+                                    {service.details.map((detail, index) => (
+                                        <div key={index} className="service-detail__detail">
+                                            <span className="service-detail__detail-number">0{index + 1}</span>
+                                            {detail.title && <h3 className="service-detail__detail-title">{detail.title}</h3>}
+                                            {detail.description && <p className="service-detail__detail-desc">{detail.description}</p>}
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
+
+                            {!service.description && !hasDetails && (
+                                <div className="no-content">
+                                    <p>Details for this service are being finalized. Please contact us to learn more.</p>
+                                </div>
+                            )}
                         </div>
 
-                        <div className="service-detail__sidebar">
-                            <img src={getImageUrl()} alt={service.title} className="service-detail__image" />
+                        {(hasImage || hasProcess) && (
+                            <div className="service-detail__sidebar">
+                                {hasImage && (
+                                    <img src={getImageUrl()} alt={service.title} className="service-detail__image" />
+                                )}
 
-                            <div className="service-detail__process">
-                                <h4>Our Process</h4>
-                                <ul>
-                                    {service.process?.map((step, index) => (
-                                        <li key={index}>
-                                            <span className="step-number">{index + 1}</span>
-                                            {step}
-                                        </li>
-                                    ))}
-                                </ul>
+                                {hasProcess && (
+                                    <div className="service-detail__process">
+                                        <h4>Our Process</h4>
+                                        <ul>
+                                            {service.process.map((step, index) => (
+                                                <li key={index}>
+                                                    <span className="step-number">{index + 1}</span>
+                                                    {step}
+                                                </li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                )}
+
+                                <Link to="/contact" className="btn-solid service-detail__cta">
+                                    GET STARTED
+                                </Link>
                             </div>
+                        )}
+                    </div>
 
-                            <Link to="/contact" className="btn-solid service-detail__cta">
+                    {!hasImage && !hasProcess && (
+                        <div style={{ textAlign: 'center', marginTop: 'var(--space-2xl)' }}>
+                            <Link to="/contact" className="btn-solid">
                                 GET STARTED
                             </Link>
                         </div>
-                    </div>
+                    )}
                 </div>
             </section>
         </div>

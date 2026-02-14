@@ -1,12 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { client, queries, urlFor, formatDate } from '../lib/sanity';
+import { client, queries, urlFor } from '../lib/sanity';
 import LoadingSpinner from '../components/LoadingSpinner';
 import '../components/PageHeader.css';
 import './BlogPage.css';
-
-// Fallback posts removed
-
 
 function BlogPage() {
     const [posts, setPosts] = useState([]);
@@ -35,7 +32,7 @@ function BlogPage() {
         if (post.image?.asset) {
             return urlFor(post.image).width(600).height(400).url();
         }
-        return post.image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop';
+        return null;
     };
 
     const formatPostDate = (date) => {
@@ -65,25 +62,31 @@ function BlogPage() {
                             <div className="blog-page__grid">
                                 {posts.map((post) => (
                                     <Link key={post._id || post.slug} to={`/blog/${post.slug}`} className="blog-card">
-                                        <div className="blog-card__image">
-                                            <img src={getImageUrl(post)} alt={post.title} />
-                                            <span className="blog-card__category">{post.category}</span>
-                                        </div>
-                                        <div className="blog-card__content">
-                                            <div className="blog-card__meta">
-                                                <span>{formatPostDate(post.publishedDate)}</span>
-                                                {post.readTime && (
-                                                    <>
-                                                        <span>•</span>
-                                                        <span>{post.readTime}</span>
-                                                    </>
+                                        {getImageUrl(post) && (
+                                            <div className="blog-card__image">
+                                                <img src={getImageUrl(post)} alt={post.title} />
+                                                {post.category && (
+                                                    <span className="blog-card__category">{post.category}</span>
                                                 )}
                                             </div>
+                                        )}
+                                        <div className="blog-card__content">
+                                            {(post.publishedDate || post.readTime) && (
+                                                <div className="blog-card__meta">
+                                                    {post.publishedDate && <span>{formatPostDate(post.publishedDate)}</span>}
+                                                    {post.publishedDate && post.readTime && <span>&bull;</span>}
+                                                    {post.readTime && <span>{post.readTime}</span>}
+                                                </div>
+                                            )}
                                             <h2 className="blog-card__title">{post.title}</h2>
                                             {post.excerpt && <p className="blog-card__excerpt">{post.excerpt}</p>}
                                             <div className="blog-card__author">
-                                                <span>By {post.author?.name}</span>
-                                                <span className="blog-card__arrow">→</span>
+                                                {post.author?.name ? (
+                                                    <span>By {post.author.name}</span>
+                                                ) : (
+                                                    <span>IBF Consulting</span>
+                                                )}
+                                                <span className="blog-card__arrow">&rarr;</span>
                                             </div>
                                         </div>
                                     </Link>
@@ -91,7 +94,7 @@ function BlogPage() {
                             </div>
                         ) : (
                             <div className="no-content">
-                                <p>No articles available at the moment.</p>
+                                <p>No articles available at the moment. Check back soon for new insights.</p>
                             </div>
                         )
                     )}

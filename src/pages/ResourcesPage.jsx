@@ -5,9 +5,6 @@ import LoadingSpinner from '../components/LoadingSpinner';
 import '../components/PageHeader.css';
 import './ResourcesPage.css';
 
-// Fallback resources removed
-
-
 function ResourcesPage() {
     const [resources, setResources] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -35,7 +32,7 @@ function ResourcesPage() {
         if (resource.image?.asset) {
             return urlFor(resource.image).width(600).height(400).url();
         }
-        return resource.image || 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=400&fit=crop';
+        return null;
     };
 
     return (
@@ -56,15 +53,21 @@ function ResourcesPage() {
                             <div className="resources-page__grid">
                                 {resources.map((resource) => (
                                     <Link key={resource._id || resource.slug} to={`/resources/${resource.slug}`} className="resource-card">
-                                        <div className="resource-card__image">
-                                            <img src={getImageUrl(resource)} alt={resource.title} />
-                                            <span className="resource-card__type">{resource.type}</span>
-                                        </div>
+                                        {getImageUrl(resource) && (
+                                            <div className="resource-card__image">
+                                                <img src={getImageUrl(resource)} alt={resource.title} />
+                                                {resource.type && (
+                                                    <span className="resource-card__type">{resource.type}</span>
+                                                )}
+                                            </div>
+                                        )}
                                         <div className="resource-card__content">
                                             <h2 className="resource-card__title">{resource.title}</h2>
-                                            <p className="resource-card__description">{resource.description}</p>
+                                            {resource.description && (
+                                                <p className="resource-card__description">{resource.description}</p>
+                                            )}
                                             <span className="resource-card__link">
-                                                View Resource <span>→</span>
+                                                View Resource <span>&rarr;</span>
                                             </span>
                                         </div>
                                     </Link>

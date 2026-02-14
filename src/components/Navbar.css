@@ -40,12 +40,10 @@
     font-size: var(--text-xl);
 }
 
-/* Navigation - Centered */
+/* Navigation - Right aligned */
 .navbar__nav {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     display: none;
+    margin-left: auto;
 }
 
 @media (min-width: 1200px) {

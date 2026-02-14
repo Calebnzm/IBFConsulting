@@ -1,0 +1,206 @@
+/* ===== Home Page Sections ===== */
+
+/* About Us Section */
+.home-about {
+    background: var(--bg-primary);
+    text-align: center;
+    padding: var(--space-4xl) 0;
+}
+
+.home-about__title {
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.02em;
+}
+
+.home-about__text {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .home-about__title {
+        font-size: var(--text-4xl);
+    }
+}
+
+/* Our Mission Section */
+.home-mission {
+    background: var(--neutral-50);
+    text-align: center;
+    padding: var(--space-4xl) 0;
+    border-top: 1px solid var(--border-light);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.home-mission__title {
+    font-size: var(--text-3xl);
+    font-weight: 500;
+    color: var(--text-primary);
+    margin-bottom: var(--space-lg);
+    letter-spacing: -0.02em;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-mission__text {
+    font-size: var(--text-lg);
+    color: var(--text-secondary);
+    line-height: 1.8;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+    .home-mission__title {
+        font-size: var(--text-4xl);
+    }
+}
+
+/* Dual Section - Value Proposition & Winning Strategies */
+.home-dual {
+    background: var(--bg-primary);
+    padding: var(--space-4xl) 0;
+}
+
+.home-dual__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-2xl);
+}
+
+@media (min-width: 1024px) {
+    .home-dual__grid {
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-3xl);
+    }
+}
+
+.home-dual__card {
+    border: 1px solid var(--border-light);
+    border-top: 3px solid var(--primary-deep);
+    padding: var(--space-2xl);
+    transition: box-shadow var(--transition-base);
+}
+
+.home-dual__card:hover {
+    box-shadow: 0 8px 30px rgba(0, 80, 157, 0.08);
+}
+
+.home-dual__heading {
+    font-size: var(--text-2xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-xl);
+    letter-spacing: -0.01em;
+}
+
+.home-dual__content {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: flex-start;
+}
+
+@media (max-width: 640px) {
+    .home-dual__content {
+        flex-direction: column;
+    }
+}
+
+/* Image placeholder */
+.home-dual__image-block {
+    flex-shrink: 0;
+}
+
+.home-dual__image-placeholder {
+    width: 120px;
+    height: 120px;
+    border: 1px solid var(--border-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--neutral-50);
+}
+
+.home-dual__image-icon {
+    font-size: 2.5rem;
+    color: var(--primary-deep);
+    opacity: 0.6;
+}
+
+/* List */
+.home-dual__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    flex: 1;
+}
+
+.home-dual__list-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+    line-height: 1.5;
+}
+
+.home-dual__bullet {
+    flex-shrink: 0;
+    width: 6px;
+    height: 6px;
+    background: var(--primary-deep);
+    margin-top: 0.5em;
+}
+
+/* CTA */
+.home-dual__cta {
+    text-align: center;
+    margin-top: var(--space-3xl);
+}
+
+/* ===== Mobile Optimizations ===== */
+@media (max-width: 480px) {
+    .home-about,
+    .home-mission,
+    .home-dual {
+        padding: var(--space-2xl) 0;
+    }
+
+    .home-about__title,
+    .home-mission__title {
+        font-size: var(--text-2xl);
+    }
+
+    .home-about__text,
+    .home-mission__text {
+        font-size: var(--text-base);
+    }
+
+    .home-dual__card {
+        padding: var(--space-lg);
+    }
+
+    .home-dual__heading {
+        font-size: var(--text-xl);
+    }
+
+    .home-dual__image-placeholder {
+        width: 80px;
+        height: 80px;
+    }
+
+    .home-dual__image-icon {
+        font-size: 1.5rem;
+    }
+
+    .home-dual__list-item {
+        font-size: var(--text-sm);
+    }
+}
