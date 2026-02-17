@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const navLinks = [
-  { name: 'ABOUT', href: '/#about' },
+  { name: 'ABOUT', href: '/' },
   { name: 'SERVICES', href: '/services' },
   { name: 'TESTIMONIALS', href: '/testimonials' },
   { name: 'RESOURCES', href: '/resources' },

@@ -120,7 +120,6 @@
     max-width: 800px;
     margin: 0 auto;
     padding-left: var(--space-xl);
-    border-left: 2px solid var(--border-light);
 }
 
 @media (max-width: 640px) {

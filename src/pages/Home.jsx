@@ -2,8 +2,11 @@ import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import './Home.css';
+import { useState, useEffect } from 'react';
+import { client, queries } from '../lib/sanity';
+import LoadingSpinner from '../components/LoadingSpinner';
 
-const valuePropositions = [
+const defaultValuePropositions = [
     'Tailored insurance consulting for diverse markets',
     'Cross-cultural business strategy expertise',
     'Bilingual (French/English) advisory services',
@@ -11,7 +14,7 @@ const valuePropositions = [
     'Regulatory compliance across jurisdictions',
 ];
 
-const winningStrategies = [
+const defaultWinningStrategies = [
     'Data-driven market analysis and insights',
     'Strategic partnerships and alliance building',
     'Innovative digital transformation roadmaps',
@@ -20,23 +23,62 @@ const winningStrategies = [
 ];
 
 function Home() {
+    const [homeData, setHomeData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const data = await client.fetch(queries.homePage);
+                setHomeData(data);
+            } catch (error) {
+                console.error("Error fetching home page data:", error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchData();
+    }, []);
+
+    if (loading) return <LoadingSpinner />;
+
+    // Use fetched data or defaults
+    const heroText = homeData?.heroSection?.heroText;
+    const about = homeData?.aboutSection || {
+        heading: 'Who We Are',
+        content: `IBF Consulting is a premier advisory firm specializing in insurance, business strategy,
+                  and French-market consulting. We transform businesses into strategic powerhouses, bridging the gap
+                  between North American and European markets. The next big leap won't happen by chance \u2014
+                  it will happen through strategic excellence and bespoke solutions that drive measurable results.`
+    };
+    const mission = homeData?.missionSection || {
+        heading: 'Empowering Businesses Through Strategic Excellence',
+        content: `Our mission is to empower organizations to navigate complex regulatory landscapes,
+                  optimize their operations, and unlock new growth opportunities. We combine deep industry
+                  knowledge with innovative methodologies to deliver transformative outcomes for every client we serve.`
+    };
+    const valueProps = homeData?.valueProposition?.points || defaultValuePropositions;
+    const valuePropHeading = homeData?.valueProposition?.heading || 'Our Value Proposition';
+
+    const strategies = homeData?.winningStrategies?.points || defaultWinningStrategies;
+    const strategiesHeading = homeData?.winningStrategies?.heading || 'Our Winning Strategies';
+
+
     return (
         <>
             <Navbar />
-            <Hero />
+            <Hero heroText={heroText} />
 
             {/* About Us Section */}
             <section id="about" className="section home-about">
                 <div className="container">
                     <div className="section-label">About Us</div>
                     <h2 className="home-about__title">
-                        Who We Are
+                        {about.heading}
                     </h2>
                     <p className="home-about__text">
-                        IBF Consulting is a premier advisory firm specializing in insurance, business strategy,
-                        and French-market consulting. We transform businesses into strategic powerhouses, bridging the gap
-                        between North American and European markets. The next big leap won't happen by chance &mdash;
-                        it will happen through strategic excellence and bespoke solutions that drive measurable results.
+                        {about.content}
                     </p>
                 </div>
             </section>
@@ -46,12 +88,10 @@ function Home() {
                 <div className="container">
                     <div className="section-label">Our Mission</div>
                     <h2 className="home-mission__title">
-                        Empowering Businesses Through Strategic Excellence
+                        {mission.heading}
                     </h2>
                     <p className="home-mission__text">
-                        Our mission is to empower organizations to navigate complex regulatory landscapes,
-                        optimize their operations, and unlock new growth opportunities. We combine deep industry
-                        knowledge with innovative methodologies to deliver transformative outcomes for every client we serve.
+                        {mission.content}
                     </p>
                 </div>
             </section>
@@ -63,7 +103,7 @@ function Home() {
                         {/* Value Proposition */}
                         <div className="home-dual__card">
                             <div className="section-label">Our Approach</div>
-                            <h3 className="home-dual__heading">Our Value Proposition</h3>
+                            <h3 className="home-dual__heading">{valuePropHeading}</h3>
                             <div className="home-dual__content">
                                 <div className="home-dual__image-block">
                                     <div className="home-dual__image-placeholder">
@@ -71,7 +111,7 @@ function Home() {
                                     </div>
                                 </div>
                                 <ul className="home-dual__list">
-                                    {valuePropositions.map((item, i) => (
+                                    {valueProps.map((item, i) => (
                                         <li key={i} className="home-dual__list-item">
                                             <span className="home-dual__bullet"></span>
                                             {item}
@@ -84,7 +124,7 @@ function Home() {
                         {/* Winning Strategies */}
                         <div className="home-dual__card">
                             <div className="section-label">Our Strengths</div>
-                            <h3 className="home-dual__heading">Our Winning Strategies</h3>
+                            <h3 className="home-dual__heading">{strategiesHeading}</h3>
                             <div className="home-dual__content">
                                 <div className="home-dual__image-block">
                                     <div className="home-dual__image-placeholder">
@@ -92,7 +132,7 @@ function Home() {
                                     </div>
                                 </div>
                                 <ul className="home-dual__list">
-                                    {winningStrategies.map((item, i) => (
+                                    {strategies.map((item, i) => (
                                         <li key={i} className="home-dual__list-item">
                                             <span className="home-dual__bullet"></span>
                                             {item}

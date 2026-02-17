@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
 import './Hero.css';
 
-function Hero() {
+function Hero({ heroText }) {
     const canvasRef = useRef(null);
+    const displayText = heroText || "Insurance Business French Consulting";
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -125,18 +126,12 @@ function Hero() {
                         </div>
                         <div className="hero__tagline-block">
                             <h1 className="hero__brand-name">
-                                Insurance Business French Consulting
+                                {displayText}
                             </h1>
                         </div>
                     </div>
-
-
-
-
                 </div>
             </div>
-
-
         </section>
     );
 }

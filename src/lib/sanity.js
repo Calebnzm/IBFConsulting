@@ -125,4 +125,22 @@ export const queries = {
     _id,
     name
   }`,
+
+  // Home Page Singleton
+  homePage: `*[_type == "homePage"][0] {
+    heroSection,
+    aboutSection,
+    missionSection,
+    valueProposition,
+    winningStrategies
+  }`,
+
+  // Footer Singleton
+  footer: `*[_type == "footer"][0] {
+    companyDescription,
+    email,
+    phone,
+    website,
+    copyrightText
+  }`,
 };

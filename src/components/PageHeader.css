@@ -14,7 +14,6 @@
     z-index: 50;
     padding: var(--space-lg) 0;
     background: #ffffff;
-    border-bottom: 2px solid var(--primary-deep);
 }
 
 .page-header .container {

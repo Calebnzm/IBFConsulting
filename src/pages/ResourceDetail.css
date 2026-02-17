@@ -111,9 +111,7 @@
 }
 
 .resource-detail__section {
-    padding: var(--space-xl);
-    border: 1px solid var(--border-light);
-    border-left: 3px solid var(--primary-deep);
+    padding: var(--space-l);
 }
 
 .resource-detail__section h2 {
