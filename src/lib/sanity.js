@@ -131,8 +131,14 @@ export const queries = {
     heroSection,
     aboutSection,
     missionSection,
-    valueProposition,
-    winningStrategies
+    valueProposition {
+      ...,
+      image
+    },
+    winningStrategies {
+      ...,
+      image
+    }
   }`,
 
   // Footer Singleton

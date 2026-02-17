@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import './Home.css';
 import { useState, useEffect } from 'react';
-import { client, queries } from '../lib/sanity';
+import { client, queries, urlFor } from '../lib/sanity';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const defaultValuePropositions = [
@@ -60,9 +60,11 @@ function Home() {
     };
     const valueProps = homeData?.valueProposition?.points || defaultValuePropositions;
     const valuePropHeading = homeData?.valueProposition?.heading || 'Our Value Proposition';
+    const valuePropImage = homeData?.valueProposition?.image;
 
     const strategies = homeData?.winningStrategies?.points || defaultWinningStrategies;
     const strategiesHeading = homeData?.winningStrategies?.heading || 'Our Winning Strategies';
+    const strategiesImage = homeData?.winningStrategies?.image;
 
 
     return (
@@ -106,9 +108,19 @@ function Home() {
                             <h3 className="home-dual__heading">{valuePropHeading}</h3>
                             <div className="home-dual__content">
                                 <div className="home-dual__image-block">
-                                    <div className="home-dual__image-placeholder">
-                                        <span className="home-dual__image-icon">&#9672;</span>
-                                    </div>
+                                    {valuePropImage ? (
+                                        <div className="home-dual__image-wrapper">
+                                            <img
+                                                src={urlFor(valuePropImage).url()}
+                                                alt={valuePropHeading}
+                                                className="home-dual__image"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="home-dual__image-placeholder">
+                                            <span className="home-dual__image-icon">&#9672;</span>
+                                        </div>
+                                    )}
                                 </div>
                                 <ul className="home-dual__list">
                                     {valueProps.map((item, i) => (
@@ -127,9 +139,19 @@ function Home() {
                             <h3 className="home-dual__heading">{strategiesHeading}</h3>
                             <div className="home-dual__content">
                                 <div className="home-dual__image-block">
-                                    <div className="home-dual__image-placeholder">
-                                        <span className="home-dual__image-icon">&#9672;</span>
-                                    </div>
+                                    {strategiesImage ? (
+                                        <div className="home-dual__image-wrapper">
+                                            <img
+                                                src={urlFor(strategiesImage).url()}
+                                                alt={strategiesHeading}
+                                                className="home-dual__image"
+                                            />
+                                        </div>
+                                    ) : (
+                                        <div className="home-dual__image-placeholder">
+                                            <span className="home-dual__image-icon">&#9672;</span>
+                                        </div>
+                                    )}
                                 </div>
                                 <ul className="home-dual__list">
                                     {strategies.map((item, i) => (

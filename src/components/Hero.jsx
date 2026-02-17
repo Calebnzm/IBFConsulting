@@ -3,7 +3,7 @@ import './Hero.css';
 
 function Hero({ heroText }) {
     const canvasRef = useRef(null);
-    const displayText = heroText || "Insurance Business French Consulting";
+    const displayText = heroText || "Insurance | Business | French | Consulting";
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -122,11 +122,11 @@ function Hero({ heroText }) {
                     <div className="hero__banner">
                         <div className="hero__logo-block">
                             <span className="hero__brand-icon">&#9672;</span>
-                            <span className="hero__logo-label">IBF</span>
                         </div>
                         <div className="hero__tagline-block">
                             <h1 className="hero__brand-name">
-                                {displayText}
+                                <span className="hero__line-one">Insurance | Business | French</span>
+                                <span className="hero__line-two">Consulting</span>
                             </h1>
                         </div>
                     </div>
