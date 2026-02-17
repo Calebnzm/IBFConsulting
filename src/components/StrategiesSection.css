@@ -1,0 +1,99 @@
+.strategies-section {
+    margin-bottom: var(--space-2xl);
+}
+
+.strategies-row {
+    display: flex;
+    gap: var(--space-xl);
+    align-items: stretch;
+}
+
+.strategies-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.strategies-header {
+
+    padding: var(--space-md);
+    text-align: center;
+    font-size: var(--text-xl);
+    font-weight: 700;
+    margin-bottom: var(--space-lg);
+    background-color: var(--neutral-50);
+    color: var(--primary-deep);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: var(--radius-sm);
+}
+
+.strategies-content {
+    display: flex;
+    gap: var(--space-md);
+    flex-grow: 1;
+}
+
+.strategies-image-placeholder {
+    flex: 1;
+    border: 1px solid var(--border-medium);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--neutral-100);
+    /* Slightly darker neutral */
+    min-height: 150px;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-radius: var(--radius-md);
+}
+
+.strategies-list {
+    flex: 1.5;
+    border: 1px solid var(--border-light);
+    padding: var(--space-lg);
+    background-color: #ffffff;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.strategies-list ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.strategies-list li {
+    margin-bottom: var(--space-sm);
+    padding-left: var(--space-lg);
+    position: relative;
+    font-size: var(--text-base);
+    color: var(--text-secondary);
+}
+
+.strategies-list li::before {
+    content: "◈";
+    /* Using site logo icon as bullet */
+    position: absolute;
+    left: 0;
+    color: var(--primary-bright);
+    font-size: 0.8em;
+    top: 0.2em;
+}
+
+/* Responsiveness */
+@media (max-width: 768px) {
+    .strategies-row {
+        flex-direction: column;
+    }
+
+    .strategies-content {
+        flex-direction: column;
+    }
+
+    .strategies-image-placeholder {
+        min-height: 200px;
+        order: -1;
+        /* Image on top on mobile */
+    }
+}

@@ -1,7 +1,8 @@
 import { useEffect, useRef } from 'react';
-import './Hero.css';
+import { Link } from 'react-router-dom';
+import './LandingHeader.css';
 
-function Hero() {
+function LandingHeader() {
     const canvasRef = useRef(null);
 
     useEffect(() => {
@@ -15,7 +16,7 @@ function Hero() {
 
         const resizeCanvas = () => {
             canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
+            canvas.height = window.innerHeight; // Full screen canvas for effect
         };
 
         const createParticles = () => {
@@ -60,7 +61,7 @@ function Hero() {
 
                 ctx.beginPath();
                 ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(0, 0, 0, ${particle.opacity})`;
+                ctx.fillStyle = `rgba(255, 255, 255, ${particle.opacity})`; // White particles for dark bg
                 ctx.fill();
 
                 particles.slice(index + 1).forEach(otherParticle => {
@@ -72,7 +73,7 @@ function Hero() {
                         ctx.beginPath();
                         ctx.moveTo(particle.x, particle.y);
                         ctx.lineTo(otherParticle.x, otherParticle.y);
-                        ctx.strokeStyle = `rgba(0, 0, 0, ${0.1 * (1 - distance / 100)})`;
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.1 * (1 - distance / 100)})`;
                         ctx.lineWidth = 0.5;
                         ctx.stroke();
                     }
@@ -83,8 +84,10 @@ function Hero() {
         };
 
         const handleMouseMove = (e) => {
-            mouse.x = e.clientX;
-            mouse.y = e.clientY;
+            // Need to account for scroll if canvas is fixed or absolute
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
         };
 
         const handleMouseLeave = () => {
@@ -112,33 +115,35 @@ function Hero() {
     }, []);
 
     return (
-        <section id="home" className="hero">
-            <canvas ref={canvasRef} className="hero__canvas"></canvas>
+        <header className="landing-header">
+            <canvas ref={canvasRef} className="landing-header__canvas"></canvas>
 
-            <div className="hero__container container">
-                <div className="hero__content">
-                    {/* Banner layout: Logo + Tagline */}
-                    <div className="hero__banner">
-                        <div className="hero__logo-block">
-                            <span className="hero__brand-icon">&#9672;</span>
-                            <span className="hero__logo-label">IBF</span>
-                        </div>
-                        <div className="hero__tagline-block">
-                            <h1 className="hero__brand-name">
-                                Insurance Business French Consulting
-                            </h1>
-                        </div>
+            <div className="landing-header__content container">
+                {/* Top Row: Brand & Nav */}
+                <div className="landing-header__top">
+                    <div className="landing-header__brand-box glass-panel">
+                        <span className="landing-header__brand-text">IBF Consulting</span>
                     </div>
+                    <nav className="landing-header__nav">
+                        <Link to="/about" className="landing-header__nav-btn glass-btn">About</Link>
+                        <Link to="/services" className="landing-header__nav-btn glass-btn">Services</Link>
+                        <Link to="/team" className="landing-header__nav-btn glass-btn">Team</Link>
+                        <Link to="/contact" className="landing-header__nav-btn glass-btn">Contact</Link>
+                    </nav>
+                </div>
 
-
-
-
+                {/* Main Row: Logo & Tagline */}
+                <div className="landing-header__main">
+                    <div className="landing-header__logo-box glass-panel">
+                        <span className="landing-header__logo-icon">◈</span>
+                    </div>
+                    <div className="landing-header__tagline-box glass-panel">
+                        <h1 className="landing-header__tagline">INSURANCE | BUSINESS | FRENCH - CONSULTING</h1>
+                    </div>
                 </div>
             </div>
-
-
-        </section>
+        </header>
     );
 }
 
-export default Hero;
+export default LandingHeader;

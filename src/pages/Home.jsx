@@ -1,3 +1,4 @@
+import Navbar from '../components/Navbar';
 import { Link } from 'react-router-dom';
 import Hero from '../components/Hero';
 import './Home.css';
@@ -21,6 +22,7 @@ const winningStrategies = [
 function Home() {
     return (
         <>
+            <Navbar />
             <Hero />
 
             {/* About Us Section */}
@@ -32,9 +34,9 @@ function Home() {
                     </h2>
                     <p className="home-about__text">
                         IBF Consulting is a premier advisory firm specializing in insurance, business strategy,
-                        and French-market consulting. With decades of combined experience, our team bridges the gap
-                        between North American and European business practices, delivering bespoke solutions that
-                        drive measurable results for our clients worldwide.
+                        and French-market consulting. We transform businesses into strategic powerhouses, bridging the gap
+                        between North American and European markets. The next big leap won't happen by chance &mdash;
+                        it will happen through strategic excellence and bespoke solutions that drive measurable results.
                     </p>
                 </div>
             </section>
